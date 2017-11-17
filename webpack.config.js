@@ -13,13 +13,13 @@ module.exports = {
             use: ['babel-loader']
         }]
     },
-    entry: './src/UbpCrsAdapter.js',
+    entry: './src/BookingManagerConnector.js',
     output: {
-        library: 'UbpCrsAdapter',
+        library: 'BookingManagerConnector',
         libraryTarget: 'umd',
         umdNamedDefine: true,
         path: path.resolve(__dirname, 'dist'),
-        filename: 'ubpCrsAdapter.min.js'
+        filename: 'bookingManagerConnector.min.js'
     },
     resolve: {
         modules: [
