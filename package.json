@@ -4,8 +4,17 @@
   "description": "This library enables your IBE to connect with the FTI booking manager.",
   "main": "dist/bookingManagerConnector.js",
   "author": "FTI",
+  "contributors": [
+    {
+      "name": "Steve Reichenbach",
+      "email": "steve.reichenbach@fti.de"
+    }
+  ],
   "license": "MIT",
   "homepage": "https://github.com/tourstream/tstr-booking-manager-connector#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.config.js",
     "postbuild": "node prepare-gcs.js",
