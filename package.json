@@ -23,6 +23,9 @@
     "version": "npm run build",
     "postversion": "git push && git push --tags"
   },
+  "files": [
+    "/dist/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:tourstream/tstr-booking-manager-connector.git"
