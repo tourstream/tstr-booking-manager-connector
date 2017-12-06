@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=11">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>IBE Simulator</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="assets/styles.css">
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <h1>BM connector Test</h1>
+
+            <div class="row">
+                <div class="col">
+                    <h2>Select the product type you want to transfer to the BM:</h2>
+
+                    <div id="actions">
+                        <button type="button" class="btn btn-outline-primary" value="car">car</button>
+                        <button type="button" class="btn btn-outline-primary" value="roundTrip">round trip</button>
+                        <button type="button" class="btn btn-outline-primary" value="hotel">hotel</button>
+                        <button type="button" class="btn btn-outline-primary" value="camper">camper</button>
+                        <button type="button" class="btn btn-outline-primary disabled" disabled value="flight">flight</button>
+                        <button class="btn btn-outline-warning mx-4">transfer to BM</button>
+                    </div>
+                </div>
+            </div>
+
+            <form id="ibe-form" class="form my-2">
+            </form>
+
+            <div id="templates" hidden>
+                <div id="form-field-template" class="input-group col">
+                    <div class="input-group-addon form-control-sm"></div>
+                    <input type="text" class="form-control form-control-sm">
+                </div>
+
+                <div id="base-form-fields">
+                    <div class="form-row">
+                        <div data-form-field data-label="Number of Travellers" data-name="numberOfTravellers" data-value="1"></div>
+                        <div data-form-field data-label="Remark" data-name="remark" data-value="this is what i remark"></div>
+                    </div>
+                </div>
+
+                <div id="car-form-fields">
+                    <input type="hidden" name="service.type" value="car"/>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Vehicle Type Code" data-name="service.vehicleTypeCode" data-value="B1"></div>
+                        <div data-form-field data-label="Rental Code" data-name="service.rentalCode" data-value="ITL22"></div>
+                        <div data-form-field data-label="Pick Up Location" data-name="service.pickUpLocation" data-value="ROMH"></div>
+                        <div data-form-field data-label="Drop Off Location" data-name="service.dropOffLocation" data-value="ROMH"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Pick Up Date" data-name="service.pickUpDate" data-value="08122017"></div>
+                        <div data-form-field data-label="Pick Up Time" data-name="service.pickUpTime" data-value="0940"></div>
+                        <div data-form-field data-label="Duration (in minutes)" data-name="service.durationInMinutes" data-title="4 days 40 minutes" data-value="5800"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Pick Up Hotel Name" data-name="service.pickUpHotelName" data-value="pu hn"></div>
+                        <div data-form-field data-label="Pick Up Hotel Address" data-name="service.pickUpHotelAddress" data-value="pu ha"></div>
+                        <div data-form-field data-label="Pick Up Hotel Phone Number" data-name="service.pickUpHotelPhoneNumber" data-value="pu hpn"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Drop Off Hotel Name" data-name="service.dropOffHotelName" data-value="do hn"></div>
+                        <div data-form-field data-label="Drop Off Hotel Address" data-name="service.dropOffHotelAddress" data-value="do ha"></div>
+                        <div data-form-field data-label="Drop Off Hotel Phone Number" data-name="service.dropOffHotelPhoneNumber" data-value="do hpn"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Extra 1" data-name="extra.0" data-value="childCareSeat0"></div>
+                        <div data-form-field data-label="Extra 2" data-name="extra.1" data-value="childCareSeat3"></div>
+                        <div data-form-field data-label="Extra 3" data-name="extra.2" data-value="navigationSystem"></div>
+                        <div data-form-field data-label="Extra 4" data-name="extra.3" data-value="additionalDriver.2"></div>
+                    </div>
+                </div>
+
+                <div id="hotel-form-fields">
+                    <input type="hidden" name="service.type" value="hotel"/>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Room Code" data-name="service.roomCode" data-value="DZ"></div>
+                        <div data-form-field data-label="Meal Code" data-name="service.mealCode" data-value="U"></div>
+                        <div data-form-field data-label="Quantity" data-name="service.roomQuantity" data-value="2"></div>
+                        <div data-form-field data-label="Occupancy" data-name="service.roomOccupancy" data-value="4"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Destination" data-name="service.destination" data-value="LAX20S"></div>
+                        <div data-form-field data-label="Date From" data-name="service.dateFrom" data-value="20092017"></div>
+                        <div data-form-field data-label="Date To" data-name="service.dateTo" data-value="20092017"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Child 1 Name" data-name="children.0.name" data-value="john doe"></div>
+                        <div data-form-field data-label="Child 1 Age" data-name="children.0.age" data-value="11"></div>
+                        <div data-form-field data-label="Child 2 Name" data-name="children.1.name" data-value="jane doe"></div>
+                        <div data-form-field data-label="Child 2 Age" data-name="children.1.age" data-value="7"></div>
+                    </div>
+                </div>
+
+                <div id="roundTrip-form-fields">
+                    <input type="hidden" name="service.type" value="roundTrip"/>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Booking ID" data-name="service.bookingId" data-value="E2784NQXTHEN"></div>
+                        <div data-form-field data-label="Destination" data-name="service.destination" data-value="YYZ"></div>
+                        <div data-form-field data-label="Start Date" data-name="service.startDate" data-value="05122017"></div>
+                        <div data-form-field data-label="End Date" data-name="service.endDate" data-value="16122017"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Traveller Salutation" data-name="service.salutation" data-value="H"></div>
+                        <div data-form-field data-label="Traveller  Name" data-name="service.name" data-value="DOE/JOHN"></div>
+                        <div data-form-field data-label="Traveller Age" data-name="service.age" data-value="32"></div>
+                        <div data-form-field data-label="Traveller B-Day" data-name="service.birthday" data-value="040485"></div>
+                    </div>
+                </div>
+
+                <div id="camper-form-fields">
+                    <input type="hidden" name="service.type" value="camper"/>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Camper Code" data-name="service.camperCode" data-value="FS"></div>
+                        <div data-form-field data-label="Renter Code" data-name="service.renterCode" data-value="PRT02"></div>
+                        <div data-form-field data-label="Pick Up Location" data-name="service.pickUpLocation" data-value="LIS1"></div>
+                        <div data-form-field data-label="Drop Off Location" data-name="service.dropOffLocation" data-value="LIS2"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Pick Up Date" data-name="service.pickUpDate" data-value="08122017"></div>
+                        <div data-form-field data-label="Duration (in days)" data-name="service.duration" data-value="4"></div>
+                        <div data-form-field data-label="Included Miles Per Days" data-name="service.milesIncludedPerDay" data-value="200"></div>
+                        <div data-form-field data-label="Included Miles Packages" data-name="service.milesPackagesIncluded" data-value="3"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div data-form-field data-label="Extra 1" data-name="extra.0" data-value="extra.2"></div>
+                        <div data-form-field data-label="Extra 2" data-name="extra.1" data-value="special"></div>
+                        <div data-form-field data-label="Extra 3" data-name="extra.2" data-value="extra.4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<script src="assets/bookingManagerConnector.js"></script>
+        <script src="assets/scripts.js"></script>
+	</body>
+</html>

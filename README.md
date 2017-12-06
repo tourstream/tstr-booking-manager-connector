@@ -22,7 +22,7 @@ let bmConnector = new BookingManagerConnector(instanceOptions);
 #### or link the source
 
 ```
-<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/latest/bookingManagerConnector.js"></script>
+<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/latest/bookingManagerConnector.min.js"></script>
 
 <script>
   var bmConnector = new BookingManagerConnector.default(instanceOptions);
@@ -157,8 +157,3 @@ It will open an extra window for debug outputs.
 
 Write a test and execute `npm run test` - the unit tests will tell you, if everything is fine. 
 Personal goal: Try to increase the test coverage to ~100%.
-
-
-## You have questions or problems with the implementation?
-
-Check the [FAQs](FAQ.md) first!

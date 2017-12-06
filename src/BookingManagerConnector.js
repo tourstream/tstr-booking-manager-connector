@@ -12,8 +12,8 @@ const SERVICE_TYPES = {
 
 const DEFAULT_OPTIONS = {
     debug: false,
-    useDateFormat: 'DDMMYYYY',
-    useTimeFormat: 'HHmm',
+    useDateFormat: 'YYYY-MM-DD',
+    useTimeFormat: 'HH:mm',
 };
 
 const CONFIG = {
@@ -30,7 +30,7 @@ class BookingManagerConnector {
     }
 
     connect() {
-        this.createConnection();
+        return this.createConnection();
     }
 
     addToBasket(dataObject) {
@@ -57,18 +57,20 @@ class BookingManagerConnector {
 
     exit() {
         this.getConnection().destroy();
+
+        return Promise.resolve();
     }
 
     /**
      * @private
      */
     createConnection() {
-        try {
-            this.connection = Penpal.connectToParent({});
-        } catch (error) {
+        this.connection = Penpal.connectToParent({});
+
+        return this.connection.promise.catch((error) => {
             this.logger.error(error);
             throw new Error('Instantiate connection error: ' + error.message);
-        }
+        });
     }
 
     /**

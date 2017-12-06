@@ -1,13 +1,13 @@
-import injector from 'inject!../src/BookingManagerConnector';
-import {DEFAULT_OPTIONS, SERVICE_TYPES} from '../src/BookingManagerConnector';
+import injector from 'inject!../../src/BookingManagerConnector';
+import {DEFAULT_OPTIONS, SERVICE_TYPES} from '../../src/BookingManagerConnector';
 
 describe('BookingManagerConnector', () => {
     let adapter, BookingManagerConnector, penpal;
 
     beforeEach(() => {
-        let logService = require('tests/_mocks/LogService')();
+        let logService = require('tests/unit/_mocks/LogService')();
 
-        penpal = require('tests/_mocks/Penpal')();
+        penpal = require('tests/unit/_mocks/Penpal')();
 
         BookingManagerConnector = injector({
             'penpal': penpal,
@@ -16,16 +16,25 @@ describe('BookingManagerConnector', () => {
         adapter = new BookingManagerConnector.default(logService, DEFAULT_OPTIONS);
     });
 
-    it('connect() should connect', () => {
+    it('connect() should connect', (done) => {
+        penpal.connectToParent.and.returnValue({ promise: Promise.resolve() });
+
         adapter.connect();
 
         expect(penpal.connectToParent).toHaveBeenCalledWith({});
+
+        done();
     });
 
-    it('connect() should throw error', () => {
-        penpal.connectToParent.and.throwError('connection.error');
+    it('connect() should throw error', (done) => {
+        penpal.connectToParent.and.returnValue({ promise: Promise.reject(new Error('connection.error')) });
 
-        expect(adapter.connect.bind(adapter)).toThrowError('Instantiate connection error: connection.error');
+        adapter.connect().then(() => {
+            done.fail('unexpected result');
+        }, (e) => {
+            expect(e.message).toBe('Instantiate connection error: connection.error');
+            done();
+        });
     });
 
     it('connect() should throw error if no connection is available', () => {
@@ -40,9 +49,9 @@ describe('BookingManagerConnector', () => {
         let connection, bmApi;
 
         beforeEach(() => {
-            bmApi = require('tests/_mocks/BookingManagerApi')();
+            bmApi = require('tests/unit/_mocks/BookingManagerApi')();
 
-            connection = require('tests/_mocks/BookingManagerConnection')();
+            connection = require('tests/unit/_mocks/BookingManagerConnection')();
             connection.promise = Promise.resolve(bmApi);
 
             penpal.connectToParent.and.returnValue(connection);
@@ -66,20 +75,20 @@ describe('BookingManagerConnector', () => {
             let data = {
                 services: [{
                     type: SERVICE_TYPES.car,
-                    pickUpDate: '12072018',
-                    pickUpTime: '0945',
+                    pickUpDate: '2018-07-12',
+                    pickUpTime: '09:45',
                 }, {
                     type: SERVICE_TYPES.hotel,
-                    dateFrom: '22072018',
-                    dateTo: '28072018',
+                    dateFrom: '2018-07-22',
+                    dateTo: '2018-07-28',
                 }, {
                     type: SERVICE_TYPES.roundTrip,
-                    startDate: '02072018',
-                    endDate: '08072018',
+                    startDate: '2018-07-02',
+                    endDate: '2018-07-08',
                 }, {
                     type: SERVICE_TYPES.camper,
-                    pickUpDate: '10072018',
-                    dropOffDate: '20072018',
+                    pickUpDate: '2018-07-10',
+                    dropOffDate: '2018-07-20',
                 }],
             };
 
