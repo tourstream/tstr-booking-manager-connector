@@ -1,5 +1,5 @@
 import injector from 'inject!../../src/BookingManagerConnector';
-import {DEFAULT_OPTIONS, SERVICE_TYPES} from '../../src/BookingManagerConnector';
+import {DEFAULT_OPTIONS, DATA_TYPES} from '../../src/BookingManagerConnector';
 
 describe('BookingManagerConnector', () => {
     let adapter, BookingManagerConnector, penpal;
@@ -61,7 +61,9 @@ describe('BookingManagerConnector', () => {
 
         it('addToBasket() should handle empty data', (done) => {
             let data = {};
-            let expected = {};
+            let expected = {
+                _: { version: jasmine.anything() },
+            };
 
             bmApi.addToBasket.and.callFake((data) => {
                 expect(data).toEqual(expected);
@@ -74,39 +76,40 @@ describe('BookingManagerConnector', () => {
         it('addToBasket() should set data correct', (done) => {
             let data = {
                 services: [{
-                    type: SERVICE_TYPES.car,
+                    type: DATA_TYPES.car,
                     pickUpDate: '2018-07-12',
                     pickUpTime: '09:45',
                 }, {
-                    type: SERVICE_TYPES.hotel,
+                    type: DATA_TYPES.hotel,
                     dateFrom: '2018-07-22',
                     dateTo: '2018-07-28',
                 }, {
-                    type: SERVICE_TYPES.roundTrip,
+                    type: DATA_TYPES.roundTrip,
                     startDate: '2018-07-02',
                     endDate: '2018-07-08',
                 }, {
-                    type: SERVICE_TYPES.camper,
+                    type: DATA_TYPES.camper,
                     pickUpDate: '2018-07-10',
                     dropOffDate: '2018-07-20',
                 }],
             };
 
             let expected = {
+                _: { version: jasmine.anything() },
                 services: [{
-                    type: SERVICE_TYPES.car,
+                    type: DATA_TYPES.car,
                     pickUpDate: '2018-07-12',
                     pickUpTime: '09:45',
                 }, {
-                    type: SERVICE_TYPES.hotel,
+                    type: DATA_TYPES.hotel,
                     dateFrom: '2018-07-22',
                     dateTo: '2018-07-28',
                 }, {
-                    type: SERVICE_TYPES.roundTrip,
+                    type: DATA_TYPES.roundTrip,
                     startDate: '2018-07-02',
                     endDate: '2018-07-08',
                 }, {
-                    type: SERVICE_TYPES.camper,
+                    type: DATA_TYPES.camper,
                     pickUpDate: '2018-07-10',
                     dropOffDate: '2018-07-20',
                 }],
@@ -123,7 +126,7 @@ describe('BookingManagerConnector', () => {
         it('directCheckout() should set car data correct', (done) => {
             let data = {
                 services: [{
-                    type: SERVICE_TYPES.car,
+                    type: DATA_TYPES.car,
                     vehicleTypeCode: 'vtc',
                     rentalCode: 'rc',
                     pickUpLocation: 'pu l',
@@ -142,8 +145,9 @@ describe('BookingManagerConnector', () => {
             };
 
             let expected = {
+                _: { version: jasmine.anything() },
                 services: [{
-                    type: SERVICE_TYPES.car,
+                    type: DATA_TYPES.car,
                     vehicleTypeCode: 'vtc',
                     rentalCode: 'rc',
                     pickUpLocation: 'pu l',
@@ -172,7 +176,7 @@ describe('BookingManagerConnector', () => {
         it('directCheckout() should set hotel data correct', (done) => {
             let data = {
                 services: [{
-                    type: SERVICE_TYPES.hotel,
+                    type: DATA_TYPES.hotel,
                     roomCode: 'rc',
                     mealCode: 'mc',
                     roomQuantity: 'rq',
@@ -185,8 +189,9 @@ describe('BookingManagerConnector', () => {
             };
 
             let expected = {
+                _: { version: jasmine.anything() },
                 services: [{
-                    type: SERVICE_TYPES.hotel,
+                    type: DATA_TYPES.hotel,
                     roomCode: 'rc',
                     mealCode: 'mc',
                     roomQuantity: 'rq',
@@ -209,7 +214,7 @@ describe('BookingManagerConnector', () => {
         it('directCheckout() should set roundTrip data correct', (done) => {
             let data = {
                 services: [{
-                    type: SERVICE_TYPES.roundTrip,
+                    type: DATA_TYPES.roundTrip,
                     bookingId: 'b id',
                     destination: 'd',
                     numberOfPassengers: 'nop',
@@ -223,8 +228,9 @@ describe('BookingManagerConnector', () => {
             };
 
             let expected = {
+                _: { version: jasmine.anything() },
                 services: [{
-                    type: SERVICE_TYPES.roundTrip,
+                    type: DATA_TYPES.roundTrip,
                     bookingId: 'b id',
                     destination: 'd',
                     numberOfPassengers: 'nop',
@@ -248,7 +254,7 @@ describe('BookingManagerConnector', () => {
         it('directCheckout() should set camper data correct', (done) => {
             let data = {
                 services: [{
-                    type: SERVICE_TYPES.camper,
+                    type: DATA_TYPES.camper,
                     renterCode: 'rc',
                     camperCode: 'cc',
                     pickUpLocation: 'pu l',
@@ -262,8 +268,9 @@ describe('BookingManagerConnector', () => {
             };
 
             let expected = {
+                _: { version: jasmine.anything() },
                 services: [{
-                    type: SERVICE_TYPES.camper,
+                    type: DATA_TYPES.camper,
                     renterCode: 'rc',
                     camperCode: 'cc',
                     pickUpLocation: 'pu l',

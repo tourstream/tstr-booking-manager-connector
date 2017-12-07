@@ -1,4 +1,4 @@
-# Booking Manager Connector
+# === Booking Manager Connector ===
 
 This project provides a JS module to enable an IBE to communicate with the FTI360 Booking Manager.
 
@@ -22,89 +22,157 @@ let bmConnector = new BookingManagerConnector(instanceOptions);
 #### or link the source
 
 ```
-<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/latest/bookingManagerConnector.min.js"></script>
+<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/<versionNumber>/bookingManagerConnector.min.js"></script>
 
 <script>
   var bmConnector = new BookingManagerConnector.default(instanceOptions);
 </script>
 ```
 
-
-## Interface
-
-To connect to the Booking Manager use:
-```
-bmConnector.connect();
-```
-
-When you are connected you can send data to the Booking Manager via:
-```
-bmConnector.addToBasket(data);
-```
-
-Or you can do a direct checkout via:
-```
-bmConnector.directCheckout(data);
-```
-
-The `data` object has the following structure:
-```
-{
-    numberOfTravellers: string,
-    services: Array<ServiceObject>,
-    remark: string,
-}
-```
-
-And also you can close the connection to the Booking Manager:
-```
-bmConnector.exit()
-```
-
-_note: every method returns a promise_
+_versionNumber_ has to be one of the [provided versions](https://github.com/tourstream/tstr-booking-manager-connector/tags).
+Alternatively you can use 'latest' to use the latest version.
 
 
 ### Supported `instanceOptions`
 
 You can check the default options with `BookingManagerConnector.DEFAULT_OPTIONS`.
 
-name          | default value  
-:---          | :---           
-debug         | false
-useDateFormat | 'DDMMYYYY' (according to [momentjs date format](https://momentjs.com/docs/#/displaying/))
-useTimeFormat | 'HHmm' (according to [momentjs date format](https://momentjs.com/docs/#/displaying/))
+```
+{
+  debug: false,                 // en-/disable debugging
+  useDateFormat: 'YYYY-MM-DD',  // the date format you want to use
+  useTimeFormat: 'HH:mm',       // the time format you want to use
+}
+```
+
+The formats are according to [momentjs date format](https://momentjs.com/docs/#/displaying/).
 
 
-### `ServiceObject` structure
+## Interface
 
-Depending on the `.type` the structure of the ServiceObject differs.
+The connector provides several functions for the communication with the BM.
+```
+bmConnector.connect();                    // establish the connection to the BM
+bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM
+bmConnector.directCheckout(dataObject);   // handover an item to the BM and triggers the transfer to the CRS
+bmConnector.exit();                       // destroy the connection to the BM
+```
+
+Every method returns a promise.
 
 
-#### Supported service types
+### The `dataObject` structure
 
-You can check the currently supported service types with `BookingManagerConnector.SERVICE_TYPES`:
+In general the `dataObject` must have at least one property to identify the type of your item:
+```
+{
+  type: BookingManagerConnector.DATA_TYPES[*]
+}
+```
 
+Currently the connector supports following types:
 - `'car'`
 - `'hotel'`
 - `'roundtrip'`
 - `'camper'`
 
-| type  | fields                   | example
-| :---  | :---                     | :---
-| car   | .vehicleTypeCode         | 'E4' 
-|       | .rentalCode              | 'DEU85' 
-|       | .pickUpLocation          | 'BER3' 
-|       | .pickUpDate              | '28122017' 
-|       | .pickUpTime              | '0915' 
-|       | .dropOffLocation         | 'MUC' 
-|       | .durationInMinutes       | '12960'
-|       | .pickUpHotelName         | 'Best Hotel' 
-|       | .pickUpHotelAddress      | 'hotel street 1, 12345 hotel city' 
-|       | .pickUpHotelPhoneNumber  | '+49 172 678 0832 09' 
-|       | .dropOffHotelName        | 'Very Best Hotel' 
-|       | .dropOffHotelAddress     | 'hotel drive 34a, famous place' 
-|       | .dropOffHotelPhoneNumber | '04031989213' 
-|       | .extras                  | ['\<extraName\>.\<count\>', 'navigationSystem', 'childCareSeat0', 'childCareSeat3'] 
+Depending on the `type` the structure of the `dataObject` differs.
+
+
+#### example for type `'car'`
+
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.car,
+  rental: {
+    date: '2017-12-28', 
+    time: '09:15', 
+    duration: 12960,  /** in minutes **/
+    status: 'OK',
+    price: 506,
+    currencyCode: 'EUR',
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+    conditionUrl: 'url://to-the.conditions',
+  },
+  vehicle: {
+    code: 'E2',
+    category: 'SMALL_CAR',
+    name: 'Chevrolet Spark 2-4T AU',
+    imageUrl: 'url://to-vehicle.img',
+  },
+  renter: {
+    name: 'Meeting Point',
+    logoUrl: 'url://to-renter.logo',
+  },
+  pickUp: {
+    locationCode: 'MIA3',  /** 4LC **/
+    station: {
+      code: 'USA81',
+      name: 'Meeting Point',
+      address: '780 Mcdonnell Road, San Francisco Airport',
+      phoneNumber: '(650) 616-2400',
+      latitude: '37.6213129',
+      longitude: '-122.3789554',
+    },
+    hotel: {
+      name: 'Best Hotel',
+      address: 'hotel street 1, 12345 hotel city',
+      phoneNumber: '+49 172 678 0832 09',
+    },
+  },
+  dropOff: {
+    locationCode: 'SFO',  /** 4LC **/
+    station: {
+      code: 'USA81',
+      name: 'Meeting Point',
+      address: '780 Mcdonnell Road, San Francisco Airport',
+      phoneNumber: '(650) 616-2400',
+      latitude: '37.6213129',
+      longitude: '-122.3789554',
+    },
+    hotel: {
+      name: 'Best Hotel',
+      address: 'hotel street 1, 12345 hotel city',
+      phoneNumber: '+49 172 678 0832 09',
+    },
+  },
+  services: {
+    liability: {
+      amount: 1000000,
+      currencyCode: 'EUR',
+    },
+    includedMileage: {
+      amount: Infinity,  /** means "unlimited" **/
+    },
+    firstAdditionalDriver: {
+      amount: 2,
+    },
+    feeST: {
+      amount: Infinity,
+    },
+    ...,
+  },
+  extras: {
+    additionalDriver: {
+      amount: 3,
+      totalPrice: 210,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 189.11,
+      exchangeCurrencyCode: 'EUR',
+    },
+    oneWayFee: {
+      amount: 1,
+      totalPrice: 0,
+      currencyCode: 'EUR',
+    },
+    childCareSeat3: {
+      amount: 1,
+    },
+    ...,
+  }, 
+}
+```
 
 | type    | fields         | example
 | :---    | :---           | :---
@@ -146,14 +214,18 @@ You can check the currently supported service types with `BookingManagerConnecto
 
 ## Debugging
 
-Sadly the debugging in some cases is not possible but the connector nevertheless provides some debugging output - 
-either you set the connector option `.debug` to `true` or you add the parameter "debug" to your URL.
-It will open an extra window for debug outputs.
+The connector provides some debugging output - either you set the connectionOption `debug` to `true` or 
+you add the parameter "&debug" to your URL. You will see the debug output in the browser console.
 
 
 ### How to test ...
 
 #### ... the code
 
-Write a test and execute `npm run test` - the unit tests will tell you, if everything is fine. 
+Write a test and execute `npm run test` - the unit tests will tell you, if everything is fine.
 Personal goal: Try to increase the test coverage to ~100%.
+
+#### ... the connector
+
+We prepared a test file, which can be opened in the Test-System of the BM.
+Just execute `npm run serve` and use the provided URL.
