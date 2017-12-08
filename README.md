@@ -74,7 +74,6 @@ Currently the connector supports following types:
 - `'car'`
 - `'hotel'`
 - `'roundtrip'`
-- `'camper'`
 
 Depending on the `type` the structure of the `dataObject` differs.
 
@@ -188,7 +187,6 @@ Depending on the `type` the structure of the `dataObject` differs.
     roomCode: 'DZ',
     roomQuantity: 2,
     roomOccupancy: 4,
-    totalPrice: 208,
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
   },
@@ -199,6 +197,8 @@ Depending on the `type` the structure of the `dataObject` differs.
     address: 'Raintaler Str.47, 81539, Munich, DE',
     latitude: '48.139497',
     longitude: '11.563788',
+    price: 208,
+    currencyCode: 'EUR',
   },
   travellers: [
     {
@@ -206,36 +206,52 @@ Depending on the `type` the structure of the `dataObject` differs.
       name: 'john doe',
       birthDate: '1983-11-08',
     },
+    ...
   ],
-  services: ['<extraName>', 'parking', 'spa_fitness', '...'],
+  services: ['<extraName>', 'parking', 'spa_fitness', ...],
 }
 ```
 
-| type      | fields              | example
-| :---      | :---                | :---
-| roundTrip | .bookingId          | 'NEZE2784NQXTHEN' 
-|           | .destination        | 'YYZ' 
-|           | .numberOfPassengers | '1' 
-|           | .startDate          | '05122017' 
-|           | .endDate            | '16122017'
-|           | .title              | 'H'
-|           | .name               | 'DOE/JOHN'
-|           | .age                | '32'
-|           | .birthday*          | '040485'
+#### example for type `'roundTrip'`
 
-*In case "age" and "birthday" are set "birthday" is preferred.
- 
-| type     | fields                 | example
-| :---     | :---                   | :---
-| camper   | .renterCode            | 'PRT02' 
-|          | .camperCode            | 'FS' 
-|          | .pickUpLocation        | 'LIS1' 
-|          | .pickUpDate            | '10102017' 
-|          | .dropOffLocation       | 'LIS2' 
-|          | .dropOffDate           | '17102017' 
-|          | .milesIncludedPerDay   | '300' 
-|          | .milesPackagesIncluded | '3' 
-|          | .extras                | ['\<extraName\>.\<count\>', 'extra.2', 'special']
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.roundTrip,
+  booking: {
+    id: 'E2784NQXTHEN',
+    destination: 'YYZ',
+    startDate: '2017-12-05',
+    endDate: '2017-12-16',
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+  },
+  trip: {
+    alias: 'Die Küste Südkaliforniens (ab San Francisco)',
+    imageUrl: 'url://to-vehicle.img',
+    price: 860,
+    currencyCode: 'EUR',
+  },
+  route: [
+    {
+      type: 'accomodation',
+      date: '2018-05-03',
+      location: 'Santa Maria',
+      latitude: '48.139497',
+      longitude: '11.563788',
+      description: 'Travelodge Santa Maria',
+    },
+    ...
+  ],
+  travellers: [
+    {
+      gender: 'male',  // 'male', 'female', 'child'
+      name: 'john doe',
+      birthDate: '1983-11-08',
+    },
+    ...
+  ],
+}
+```
 
 
 ## Debugging
@@ -253,5 +269,5 @@ Personal goal: Try to increase the test coverage to ~100%.
 
 #### ... the connector
 
-We prepared a test file, which can be opened in the Test-System of the BM.
+We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/test) of the BM.
 Just execute `npm run serve` and use the provided URL.
