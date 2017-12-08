@@ -89,8 +89,6 @@ Depending on the `type` the structure of the `dataObject` differs.
     time: '09:15', 
     duration: 12960,  /** in minutes **/
     status: 'OK',
-    price: 506,
-    currencyCode: 'EUR',
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
     conditionUrl: 'url://to-the.conditions',
@@ -100,6 +98,8 @@ Depending on the `type` the structure of the `dataObject` differs.
     category: 'SMALL_CAR',
     name: 'Chevrolet Spark 2-4T AU',
     imageUrl: 'url://to-vehicle.img',
+    price: 506,
+    currencyCode: 'EUR',
   },
   renter: {
     name: 'Meeting Point',
@@ -174,16 +174,42 @@ Depending on the `type` the structure of the `dataObject` differs.
 }
 ```
 
-| type    | fields         | example
-| :---    | :---           | :---
-| hotel   | .roomCode      | 'DZ' 
-|         | .mealCode      | 'U' 
-|         | .roomQuantity  | '2'
-|         | .roomOccupancy | '4'
-|         | .destination   | 'LAX20S' 
-|         | .dateFrom      | '20092017' 
-|         | .dateTo        | '20092017' 
-|         | .children      | [ { name: 'john', age: '11' }, ... ] 
+
+#### example for type `'hotel'`
+
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.hotel,
+  booking: {
+    from: '2017-09-20',
+    to: '2017-09-27',
+    destination: 'MUC',
+    mealCode: 'U',
+    roomCode: 'DZ',
+    roomQuantity: 2,
+    roomOccupancy: 4,
+    totalPrice: 208,
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+  },
+  hotel: {
+    name: 'Hotel ibis Muenchen City Sued',
+    imageUrl: 'url://to-vehicle.img',
+    class: 3,
+    address: 'Raintaler Str.47, 81539, Munich, DE',
+    latitude: '48.139497',
+    longitude: '11.563788',
+  },
+  travellers: [
+    {
+      gender: 'male',  // 'male', 'female', 'child'
+      name: 'john doe',
+      birthDate: '1983-11-08',
+    },
+  ],
+  services: ['<extraName>', 'parking', 'spa_fitness', '...'],
+}
+```
 
 | type      | fields              | example
 | :---      | :---                | :---
