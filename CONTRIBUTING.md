@@ -18,4 +18,4 @@ Finally: you do not have to create the dist files!
 
 You have to create new versions - the recommended way: `npm version <version-number>`!
 This process will create the dist files and update the version of the library.
-We use semantic version - think about it before setting it!
+We use semantic versioning - think about it before setting it!

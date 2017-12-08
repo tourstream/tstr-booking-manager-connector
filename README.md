@@ -269,5 +269,5 @@ Personal goal: Try to increase the test coverage to ~100%.
 
 #### ... the connector
 
-We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/test) of the BM.
+We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/external) of the BM.
 Just execute `npm run serve` and use the provided URL.
