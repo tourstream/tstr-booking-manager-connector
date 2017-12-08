@@ -21,17 +21,17 @@ const CONFIG = {
 };
 
 const TYPE_2_DATE_PROPERTIES = {
-    [DATA_TYPES.car]: ['pickUpDate'],
-    [DATA_TYPES.hotel]: ['dateFrom', 'dateTo'],
-    [DATA_TYPES.roundTrip]: ['startDate', 'endDate'],
+    [DATA_TYPES.car]: ['rental.date'],
+    [DATA_TYPES.hotel]: ['booking.from', 'booking.to', 'travellers.birthDate'],
+    [DATA_TYPES.roundTrip]: ['booking.from', 'booking.to', 'route.date', 'travellers.birthDate'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {
-    [DATA_TYPES.car]: ['pickUpTime'],
+    [DATA_TYPES.car]: ['rental.time'],
 };
 
 class BookingManagerConnector {
-    constructor(options) {
+    constructor(options = {}) {
         this.options = Object.assign({}, DEFAULT_OPTIONS, options);
         this.logger = new LogService();
         this.connectorVersion = require('package.json').version;
@@ -102,8 +102,13 @@ class BookingManagerConnector {
      * @returns {*}
      */
     convertDataToTransferObject(data) {
-        this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES[data.type]);
-        this.convertTimeProperties(data, TYPE_2_TIME_PROPERTIES[data.type]);
+        if (this.options.useDateFormat !== CONFIG.dateFormat) {
+            this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES[data.type]);
+        }
+
+        if (this.options.useTimeFormat !== CONFIG.timeFormat) {
+            this.convertTimeProperties(data, TYPE_2_TIME_PROPERTIES[data.type]);
+        }
 
         data._ = {
             version: this.connectorVersion,
@@ -113,15 +118,34 @@ class BookingManagerConnector {
     }
 
     convertDateProperties(data, propertyList = []) {
-        propertyList.forEach((propertyName) => {
-            data[propertyName] = this.convertDateValue(data[propertyName]);
+        propertyList.forEach((propertyPath) => {
+            this.convertValueByPropertyPath(data, propertyPath, this.convertDateValue.bind(this));
         });
     }
 
     convertTimeProperties(data, propertyList = []) {
-        propertyList.forEach((propertyName) => {
-            data[propertyName] = this.convertTimeValue(data[propertyName]);
+        propertyList.forEach((propertyPath) => {
+            this.convertValueByPropertyPath(data, propertyPath, this.convertTimeValue.bind(this));
         });
+    }
+
+    convertValueByPropertyPath(object, path, callback) {
+        let parts = path.split('.');
+        let property = parts.shift();
+
+        if (path === property) {
+            object[property] = callback(object[property]);
+
+            return;
+        }
+
+        if (Array.isArray(object[property])) {
+            object[property].forEach((item) => this.convertValueByPropertyPath(item, parts.join('.'), callback));
+
+            return;
+        }
+
+        this.convertValueByPropertyPath(object[property], parts.join('.'), callback);
     }
 
     /**

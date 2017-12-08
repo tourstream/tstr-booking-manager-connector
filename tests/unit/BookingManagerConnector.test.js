@@ -5,15 +5,32 @@ describe('BookingManagerConnector', () => {
     let adapter, BookingManagerConnector, penpal;
 
     beforeEach(() => {
-        let logService = require('tests/unit/_mocks/LogService')();
-
         penpal = require('tests/unit/_mocks/Penpal')();
 
         BookingManagerConnector = injector({
             'penpal': penpal,
         });
 
-        adapter = new BookingManagerConnector.default(logService, DEFAULT_OPTIONS);
+        adapter = new BookingManagerConnector.default({
+            useDateFormat: 'YYYYMMDD',
+            useTimeFormat: 'HHmm'
+        });
+    });
+
+    it('DEFAULT_OPTIONS should be correct', () => {
+        expect(DEFAULT_OPTIONS).toEqual({
+            debug: false,
+            useDateFormat: 'YYYY-MM-DD',
+            useTimeFormat: 'HH:mm',
+        });
+    });
+
+    it('DATA_TYPES should be correct', () => {
+        expect(DATA_TYPES).toEqual({
+            car: 'car',
+            hotel: 'hotel',
+            roundTrip: 'roundtrip',
+        });
     });
 
     it('connect() should connect', (done) => {
@@ -74,45 +91,15 @@ describe('BookingManagerConnector', () => {
         });
 
         it('addToBasket() should set data correct', (done) => {
-            let data = {
-                services: [{
-                    type: DATA_TYPES.car,
-                    pickUpDate: '2018-07-12',
-                    pickUpTime: '09:45',
-                }, {
-                    type: DATA_TYPES.hotel,
-                    dateFrom: '2018-07-22',
-                    dateTo: '2018-07-28',
-                }, {
-                    type: DATA_TYPES.roundTrip,
-                    startDate: '2018-07-02',
-                    endDate: '2018-07-08',
-                }, {
-                    type: DATA_TYPES.camper,
-                    pickUpDate: '2018-07-10',
-                    dropOffDate: '2018-07-20',
-                }],
-            };
+            let data = { string: 'data', array: [], object: {}, number: 0, boolean: false };
 
             let expected = {
                 _: { version: jasmine.anything() },
-                services: [{
-                    type: DATA_TYPES.car,
-                    pickUpDate: '2018-07-12',
-                    pickUpTime: '09:45',
-                }, {
-                    type: DATA_TYPES.hotel,
-                    dateFrom: '2018-07-22',
-                    dateTo: '2018-07-28',
-                }, {
-                    type: DATA_TYPES.roundTrip,
-                    startDate: '2018-07-02',
-                    endDate: '2018-07-08',
-                }, {
-                    type: DATA_TYPES.camper,
-                    pickUpDate: '2018-07-10',
-                    dropOffDate: '2018-07-20',
-                }],
+                string: 'data',
+                array: [],
+                object: {},
+                number: 0,
+                boolean: false,
             };
 
             bmApi.addToBasket.and.callFake((data) => {
@@ -123,46 +110,16 @@ describe('BookingManagerConnector', () => {
             adapter.addToBasket(data);
         });
 
-        it('directCheckout() should set car data correct', (done) => {
-            let data = {
-                services: [{
-                    type: DATA_TYPES.car,
-                    vehicleTypeCode: 'vtc',
-                    rentalCode: 'rc',
-                    pickUpLocation: 'pu l',
-                    pickUpDate: 'invalid pu d',
-                    pickUpTime: 'invalid pu t',
-                    dropOffLocation: 'do l',
-                    durationInMinutes: 6215,
-                    pickUpHotelName: 'puh n',
-                    pickUpHotelAddress: 'puh a',
-                    pickUpHotelPhoneNumber: 'puh pn',
-                    dropOffHotelName: 'do hn',
-                    dropOffHotelAddress: 'do ha',
-                    dropOffHotelPhoneNumber: 'do hpn',
-                    extras: ['e.2', 'e3.2', 'e'],
-                }],
-            };
+        it('directCheckout() should set data correct', (done) => {
+            let data = { string: 'data', array: [], object: {}, number: 0, boolean: false };
 
             let expected = {
                 _: { version: jasmine.anything() },
-                services: [{
-                    type: DATA_TYPES.car,
-                    vehicleTypeCode: 'vtc',
-                    rentalCode: 'rc',
-                    pickUpLocation: 'pu l',
-                    pickUpDate: 'invalid pu d',
-                    pickUpTime: 'invalid pu t',
-                    dropOffLocation: 'do l',
-                    durationInMinutes: 6215,
-                    pickUpHotelName: 'puh n',
-                    pickUpHotelAddress: 'puh a',
-                    pickUpHotelPhoneNumber: 'puh pn',
-                    dropOffHotelName: 'do hn',
-                    dropOffHotelAddress: 'do ha',
-                    dropOffHotelPhoneNumber: 'do hpn',
-                    extras: ['e.2', 'e3.2', 'e'],
-                }],
+                string: 'data',
+                array: [],
+                object: {},
+                number: 0,
+                boolean: false,
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -173,34 +130,22 @@ describe('BookingManagerConnector', () => {
             adapter.directCheckout(data);
         });
 
-        it('directCheckout() should set hotel data correct', (done) => {
+        it('conversion of car values should work correct', (done) => {
             let data = {
-                services: [{
-                    type: DATA_TYPES.hotel,
-                    roomCode: 'rc',
-                    mealCode: 'mc',
-                    roomQuantity: 'rq',
-                    roomOccupancy: 'ro',
-                    destination: 'd',
-                    dateFrom: 'invalid df',
-                    dateTo: 'invalid dt',
-                    children: [{ name: 'john doe', age: '3' }],
-                }],
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '20181108',
+                    time: '0920',
+                },
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
-                services: [{
-                    type: DATA_TYPES.hotel,
-                    roomCode: 'rc',
-                    mealCode: 'mc',
-                    roomQuantity: 'rq',
-                    roomOccupancy: 'ro',
-                    destination: 'd',
-                    dateFrom: 'invalid df',
-                    dateTo: 'invalid dt',
-                    children: [{ name: 'john doe', age: '3' }],
-                }],
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '2018-11-08',
+                    time: '09:20',
+                },
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -211,36 +156,28 @@ describe('BookingManagerConnector', () => {
             adapter.directCheckout(data);
         });
 
-        it('directCheckout() should set roundTrip data correct', (done) => {
+        it('conversion of hotel values should work correct', (done) => {
             let data = {
-                services: [{
-                    type: DATA_TYPES.roundTrip,
-                    bookingId: 'b id',
-                    destination: 'd',
-                    numberOfPassengers: 'nop',
-                    startDate: 'invalid sd',
-                    endDate: 'invalid ed',
-                    title: 't',
-                    name: 'n',
-                    age: 'a',
-                    birthday: 'b',
-                }],
+                type: DATA_TYPES.hotel,
+                booking: {
+                    from: '20181108',
+                    to: '20181118',
+                },
+                travellers: [
+                    { birthDate: '19831108' },
+                ],
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
-                services: [{
-                    type: DATA_TYPES.roundTrip,
-                    bookingId: 'b id',
-                    destination: 'd',
-                    numberOfPassengers: 'nop',
-                    startDate: 'invalid sd',
-                    endDate: 'invalid ed',
-                    title: 't',
-                    name: 'n',
-                    age: 'a',
-                    birthday: 'b',
-                }],
+                type: DATA_TYPES.hotel,
+                booking: {
+                    from: '2018-11-08',
+                    to: '2018-11-18',
+                },
+                travellers: [
+                    { birthDate: '1983-11-08' },
+                ],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -251,37 +188,90 @@ describe('BookingManagerConnector', () => {
             adapter.directCheckout(data);
         });
 
-        it('directCheckout() should set camper data correct', (done) => {
+        it('conversion of roundTrip values should work correct', (done) => {
             let data = {
-                services: [{
-                    type: DATA_TYPES.camper,
-                    renterCode: 'rc',
-                    camperCode: 'cc',
-                    pickUpLocation: 'pu l',
-                    dropOffLocation: 'do l',
-                    pickUpDate: 'invalid pu d',
-                    dropOffDate: 'invalid do d',
-                    milesIncludedPerDay: 'mipd',
-                    milesPackagesIncluded: 'mpi',
-                    extras: ['e.2', 'e3.2', 'e'],
-                }],
+                type: DATA_TYPES.roundTrip,
+                booking: {
+                    from: '20181108',
+                    to: '20181118',
+                },
+                route: [
+                    { date: '20181207' },
+                ],
+                travellers: [
+                    { birthDate: '19831108'},
+                ],
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
-                services: [{
-                    type: DATA_TYPES.camper,
-                    renterCode: 'rc',
-                    camperCode: 'cc',
-                    pickUpLocation: 'pu l',
-                    dropOffLocation: 'do l',
-                    pickUpDate: 'invalid pu d',
-                    dropOffDate: 'invalid do d',
-                    milesIncludedPerDay: 'mipd',
-                    milesPackagesIncluded: 'mpi',
-                    extras: ['e.2', 'e3.2', 'e'],
-                }],
+                type: DATA_TYPES.roundTrip,
+                booking: {
+                    from: '2018-11-08',
+                    to: '2018-11-18',
+                },
+                route: [
+                    { date: '2018-12-07' },
+                ],
+                travellers: [
+                    { birthDate: '1983-11-08'},
+                ],
             };
+
+            bmApi.directCheckout.and.callFake((data) => {
+                expect(data).toEqual(expected);
+                done();
+            });
+
+            adapter.directCheckout(data);
+        });
+
+        it('should do no conversion if conversion result is wrong', (done) => {
+            let data = {
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '08112018',
+                    time: '920',
+                },
+            };
+
+            let expected = {
+                _: { version: jasmine.anything() },
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '08112018',
+                    time: '920',
+                },
+            };
+
+            bmApi.directCheckout.and.callFake((data) => {
+                expect(data).toEqual(expected);
+                done();
+            });
+
+            adapter.directCheckout(data);
+        });
+
+        it('should do no conversion if use*Format is not defined', (done) => {
+            let data = {
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '20181108',
+                    time: '0920',
+                },
+            };
+
+            let expected = {
+                _: { version: jasmine.anything() },
+                type: DATA_TYPES.car,
+                rental: {
+                    date: '20181108',
+                    time: '0920',
+                },
+            };
+
+            adapter = new BookingManagerConnector.default();
+            adapter.connect();
 
             bmApi.directCheckout.and.callFake((data) => {
                 expect(data).toEqual(expected);

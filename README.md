@@ -220,8 +220,8 @@ Depending on the `type` the structure of the `dataObject` differs.
   booking: {
     id: 'E2784NQXTHEN',
     destination: 'YYZ',
-    startDate: '2017-12-05',
-    endDate: '2017-12-16',
+    from: '2017-12-05',
+    to: '2017-12-16',
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
   },
