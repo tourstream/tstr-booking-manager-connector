@@ -3,17 +3,16 @@ import LogService from 'LogService';
 import Penpal from 'penpal';
 import moment from 'moment';
 
-const SERVICE_TYPES = {
+const DATA_TYPES = {
     car: 'car',
     hotel: 'hotel',
     roundTrip: 'roundtrip',
-    camper: 'camper',
 };
 
 const DEFAULT_OPTIONS = {
     debug: false,
-    useDateFormat: 'DDMMYYYY',
-    useTimeFormat: 'HHmm',
+    useDateFormat: 'YYYY-MM-DD',
+    useTimeFormat: 'HH:mm',
 };
 
 const CONFIG = {
@@ -21,54 +20,67 @@ const CONFIG = {
     timeFormat: 'HH:mm',        // ISO 8601
 };
 
+const TYPE_2_DATE_PROPERTIES = {
+    [DATA_TYPES.car]: ['rental.date'],
+    [DATA_TYPES.hotel]: ['booking.from', 'booking.to', 'travellers.birthDate'],
+    [DATA_TYPES.roundTrip]: ['booking.from', 'booking.to', 'route.date', 'travellers.birthDate'],
+};
+
+const TYPE_2_TIME_PROPERTIES = {
+    [DATA_TYPES.car]: ['rental.time'],
+};
+
 class BookingManagerConnector {
-    constructor(options) {
+    constructor(options = {}) {
         this.options = Object.assign({}, DEFAULT_OPTIONS, options);
         this.logger = new LogService();
+        this.connectorVersion = require('package.json').version;
 
         Penpal.debug = options.debug;
     }
 
     connect() {
-        this.createConnection();
+        return this.createConnection();
     }
 
-    addToBasket(dataObject) {
+    addToBasket(data) {
         return this.getConnection().promise.then(parent => {
-            let rawObject = this.mapDataObjectToRawObject(dataObject);
+            let transferObject = this.convertDataToTransferObject(data);
 
-            this.logger.log('RAW DATA');
-            this.logger.log(rawObject);
+            this.logger.log('TRANSFER DATA');
+            this.logger.log(transferObject);
 
-            return parent.addToBasket(rawObject);
+            return parent.addToBasket(transferObject);
         });
     }
 
     directCheckout(dataObject) {
         return this.getConnection().promise.then(parent => {
-            let rawObject = this.mapDataObjectToRawObject(dataObject);
+            let transferObject = this.convertDataToTransferObject(dataObject);
 
-            this.logger.log('RAW DATA');
-            this.logger.log(rawObject);
+            this.logger.log('TRANSFER DATA');
+            this.logger.log(transferObject);
 
-            return parent.directCheckout(rawObject);
+            return parent.directCheckout(transferObject);
         });
     }
 
     exit() {
         this.getConnection().destroy();
+
+        return Promise.resolve();
     }
 
     /**
      * @private
      */
     createConnection() {
-        try {
-            this.connection = Penpal.connectToParent({});
-        } catch (error) {
+        this.connection = Penpal.connectToParent({});
+
+        return this.connection.promise.catch((error) => {
             this.logger.error(error);
             throw new Error('Instantiate connection error: ' + error.message);
-        }
+        });
     }
 
     /**
@@ -85,66 +97,55 @@ class BookingManagerConnector {
 
     /**
      * @private
+     *
+     * @param data
+     * @returns {*}
      */
-    mapDataObjectToRawObject(dataObject) {
-        (dataObject.services || []).forEach((service) => {
-            switch (service.type) {
-                case SERVICE_TYPES.car: {
-                    this.convertCarService(service);
-                    break;
-                }
-                case SERVICE_TYPES.hotel: {
-                    this.convertHotelService(service);
-                    break;
-                }
-                case SERVICE_TYPES.roundTrip: {
-                    this.convertRoundTripService(service);
-                    break;
-                }
-                case SERVICE_TYPES.camper: {
-                    this.convertCamperService(service);
-                    break;
-                }
-            }
+    convertDataToTransferObject(data) {
+        if (this.options.useDateFormat !== CONFIG.dateFormat) {
+            this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES[data.type]);
+        }
+
+        if (this.options.useTimeFormat !== CONFIG.timeFormat) {
+            this.convertTimeProperties(data, TYPE_2_TIME_PROPERTIES[data.type]);
+        }
+
+        data._ = {
+            version: this.connectorVersion,
+        };
+
+        return data;
+    }
+
+    convertDateProperties(data, propertyList = []) {
+        propertyList.forEach((propertyPath) => {
+            this.convertValueByPropertyPath(data, propertyPath, this.convertDateValue.bind(this));
         });
-
-        return dataObject;
     }
 
-    /**
-     * @private
-     * @param service object
-     */
-    convertCarService(service) {
-        service.pickUpDate = this.convertDateValue(service.pickUpDate);
-        service.pickUpTime = this.convertTimeValue(service.pickUpTime);
+    convertTimeProperties(data, propertyList = []) {
+        propertyList.forEach((propertyPath) => {
+            this.convertValueByPropertyPath(data, propertyPath, this.convertTimeValue.bind(this));
+        });
     }
 
-    /**
-     * @private
-     * @param service object
-     */
-    convertHotelService(service) {
-        service.dateFrom = this.convertDateValue(service.dateFrom);
-        service.dateTo = this.convertDateValue(service.dateTo);
-    }
+    convertValueByPropertyPath(object, path, callback) {
+        let parts = path.split('.');
+        let property = parts.shift();
 
-    /**
-     * @private
-     * @param service object
-     */
-    convertRoundTripService(service) {
-        service.startDate = this.convertDateValue(service.startDate);
-        service.endDate = this.convertDateValue(service.endDate);
-    }
+        if (path === property) {
+            object[property] = callback(object[property]);
 
-    /**
-     * @private
-     * @param service object
-     */
-    convertCamperService(service) {
-        service.pickUpDate = this.convertDateValue(service.pickUpDate);
-        service.dropOffDate = this.convertDateValue(service.dropOffDate);
+            return;
+        }
+
+        if (Array.isArray(object[property])) {
+            object[property].forEach((item) => this.convertValueByPropertyPath(item, parts.join('.'), callback));
+
+            return;
+        }
+
+        this.convertValueByPropertyPath(object[property], parts.join('.'), callback);
     }
 
     /**
@@ -171,7 +172,7 @@ class BookingManagerConnector {
 }
 
 export {
-    SERVICE_TYPES,
+    DATA_TYPES,
     DEFAULT_OPTIONS,
     BookingManagerConnector as default,
 };

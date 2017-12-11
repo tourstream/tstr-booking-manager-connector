@@ -1,4 +1,4 @@
-# Booking Manager Connector
+# === Booking Manager Connector ===
 
 This project provides a JS module to enable an IBE to communicate with the FTI360 Booking Manager.
 
@@ -22,143 +22,254 @@ let bmConnector = new BookingManagerConnector(instanceOptions);
 #### or link the source
 
 ```
-<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/latest/bookingManagerConnector.js"></script>
+<script src="https://assets.gcloud.fti-group.com/tstr-booking-manager-connector/<versionNumber>/bookingManagerConnector.min.js"></script>
 
 <script>
   var bmConnector = new BookingManagerConnector.default(instanceOptions);
 </script>
 ```
 
-
-## Interface
-
-To connect to the Booking Manager use:
-```
-bmConnector.connect();
-```
-
-When you are connected you can send data to the Booking Manager via:
-```
-bmConnector.addToBasket(data);
-```
-
-Or you can do a direct checkout via:
-```
-bmConnector.directCheckout(data);
-```
-
-The `data` object has the following structure:
-```
-{
-    numberOfTravellers: string,
-    services: Array<ServiceObject>,
-    remark: string,
-}
-```
-
-And also you can close the connection to the Booking Manager:
-```
-bmConnector.exit()
-```
-
-_note: every method returns a promise_
+_versionNumber_ has to be one of the [provided versions](https://github.com/tourstream/tstr-booking-manager-connector/tags).
+Alternatively you can use 'latest' to use the latest version.
 
 
 ### Supported `instanceOptions`
 
 You can check the default options with `BookingManagerConnector.DEFAULT_OPTIONS`.
 
-name          | default value  
-:---          | :---           
-debug         | false
-useDateFormat | 'DDMMYYYY' (according to [momentjs date format](https://momentjs.com/docs/#/displaying/))
-useTimeFormat | 'HHmm' (according to [momentjs date format](https://momentjs.com/docs/#/displaying/))
+```
+{
+  debug: false,                 // en-/disable debugging
+  useDateFormat: 'YYYY-MM-DD',  // the date format you want to use
+  useTimeFormat: 'HH:mm',       // the time format you want to use
+}
+```
+
+The formats are according to [momentjs date format](https://momentjs.com/docs/#/displaying/).
 
 
-### `ServiceObject` structure
+## Interface
 
-Depending on the `.type` the structure of the ServiceObject differs.
+The connector provides several functions for the communication with the BM.
+```
+bmConnector.connect();                    // establish the connection to the BM
+bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM
+bmConnector.directCheckout(dataObject);   // handover an item to the BM and triggers the transfer to the CRS
+bmConnector.exit();                       // destroy the connection to the BM
+```
+
+Every method returns a promise.
 
 
-#### Supported service types
+### The `dataObject` structure
 
-You can check the currently supported service types with `BookingManagerConnector.SERVICE_TYPES`:
+In general the `dataObject` must have at least one property to identify the type of your item:
+```
+{
+  type: BookingManagerConnector.DATA_TYPES[*]
+}
+```
 
+Currently the connector supports following types:
 - `'car'`
 - `'hotel'`
 - `'roundtrip'`
-- `'camper'`
 
-| type  | fields                   | example
-| :---  | :---                     | :---
-| car   | .vehicleTypeCode         | 'E4' 
-|       | .rentalCode              | 'DEU85' 
-|       | .pickUpLocation          | 'BER3' 
-|       | .pickUpDate              | '28122017' 
-|       | .pickUpTime              | '0915' 
-|       | .dropOffLocation         | 'MUC' 
-|       | .durationInMinutes       | '12960'
-|       | .pickUpHotelName         | 'Best Hotel' 
-|       | .pickUpHotelAddress      | 'hotel street 1, 12345 hotel city' 
-|       | .pickUpHotelPhoneNumber  | '+49 172 678 0832 09' 
-|       | .dropOffHotelName        | 'Very Best Hotel' 
-|       | .dropOffHotelAddress     | 'hotel drive 34a, famous place' 
-|       | .dropOffHotelPhoneNumber | '04031989213' 
-|       | .extras                  | ['\<extraName\>.\<count\>', 'navigationSystem', 'childCareSeat0', 'childCareSeat3'] 
+Depending on the `type` the structure of the `dataObject` differs.
 
-| type    | fields         | example
-| :---    | :---           | :---
-| hotel   | .roomCode      | 'DZ' 
-|         | .mealCode      | 'U' 
-|         | .roomQuantity  | '2'
-|         | .roomOccupancy | '4'
-|         | .destination   | 'LAX20S' 
-|         | .dateFrom      | '20092017' 
-|         | .dateTo        | '20092017' 
-|         | .children      | [ { name: 'john', age: '11' }, ... ] 
 
-| type      | fields              | example
-| :---      | :---                | :---
-| roundTrip | .bookingId          | 'NEZE2784NQXTHEN' 
-|           | .destination        | 'YYZ' 
-|           | .numberOfPassengers | '1' 
-|           | .startDate          | '05122017' 
-|           | .endDate            | '16122017'
-|           | .title              | 'H'
-|           | .name               | 'DOE/JOHN'
-|           | .age                | '32'
-|           | .birthday*          | '040485'
+#### example for type `'car'`
 
-*In case "age" and "birthday" are set "birthday" is preferred.
- 
-| type     | fields                 | example
-| :---     | :---                   | :---
-| camper   | .renterCode            | 'PRT02' 
-|          | .camperCode            | 'FS' 
-|          | .pickUpLocation        | 'LIS1' 
-|          | .pickUpDate            | '10102017' 
-|          | .dropOffLocation       | 'LIS2' 
-|          | .dropOffDate           | '17102017' 
-|          | .milesIncludedPerDay   | '300' 
-|          | .milesPackagesIncluded | '3' 
-|          | .extras                | ['\<extraName\>.\<count\>', 'extra.2', 'special']
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.car,
+  rental: {
+    date: '2017-12-28', 
+    time: '09:15', 
+    duration: 12960,  /** in minutes **/
+    status: 'OK',
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+    conditionUrl: 'url://to-the.conditions',
+    price: 506,
+    currencyCode: 'EUR',
+  },
+  vehicle: {
+    code: 'E2',
+    category: 'SMALL_CAR',
+    name: 'Chevrolet Spark 2-4T AU',
+    imageUrl: 'url://to-vehicle.img',
+  },
+  renter: {
+    name: 'Meeting Point',
+    logoUrl: 'url://to-renter.logo',
+  },
+  pickUp: {
+    locationCode: 'MIA3',  /** 4LC **/
+    station: {
+      code: 'USA81',
+      name: 'Meeting Point',
+      address: '780 Mcdonnell Road, San Francisco Airport',
+      phoneNumber: '(650) 616-2400',
+      latitude: '37.6213129',
+      longitude: '-122.3789554',
+    },
+    hotel: {
+      name: 'Best Hotel',
+      address: 'hotel street 1, 12345 hotel city',
+      phoneNumber: '+49 172 678 0832 09',
+    },
+  },
+  dropOff: {
+    locationCode: 'SFO',  /** 4LC **/
+    station: {
+      code: 'USA81',
+      name: 'Meeting Point',
+      address: '780 Mcdonnell Road, San Francisco Airport',
+      phoneNumber: '(650) 616-2400',
+      latitude: '37.6213129',
+      longitude: '-122.3789554',
+    },
+    hotel: {
+      name: 'Best Hotel',
+      address: 'hotel street 1, 12345 hotel city',
+      phoneNumber: '+49 172 678 0832 09',
+    },
+  },
+  services: {
+    liability: {
+      amount: 1000000,
+      currencyCode: 'EUR',
+    },
+    includedMileage: {
+      amount: Infinity,  /** means "unlimited" **/
+    },
+    firstAdditionalDriver: {
+      amount: 2,
+    },
+    feeST: {
+      amount: Infinity,
+    },
+    ...,
+  },
+  extras: {
+    additionalDriver: {
+      amount: 3,
+      totalPrice: 210,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 189.11,
+      exchangeCurrencyCode: 'EUR',
+    },
+    oneWayFee: {
+      amount: 1,
+      totalPrice: 0,
+      currencyCode: 'EUR',
+    },
+    childCareSeat3: {
+      amount: 1,
+    },
+    ...,
+  }, 
+}
+```
+
+
+#### example for type `'hotel'`
+
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.hotel,
+  booking: {
+    from: '2017-09-20',
+    to: '2017-09-27',
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+    price: 208,
+    currencyCode: 'EUR',
+  },
+  hotel: {
+    destination: 'MUC',
+    class: 3,
+    name: 'Hotel ibis Muenchen City Sued',
+    imageUrl: 'url://to-vehicle.img',
+    address: 'Raintaler Str.47, 81539, Munich, DE',
+    latitude: '48.139497',
+    longitude: '11.563788',
+  },
+  room: {
+    code: 'DZ',
+    quantity: 2,
+    occupancy: 4,
+    mealCode: 'U',
+  },
+  travellers: [
+    {
+      gender: 'male',  // 'male', 'female', 'child'
+      name: 'john doe',
+      birthDate: '1983-11-08',
+    },
+    ...
+  ],
+  services: ['<extraName>', 'parking', 'spa_fitness', ...],
+}
+```
+
+#### example for type `'roundTrip'`
+
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.roundTrip,
+  booking: {
+    id: 'E2784NQXTHEN',
+    from: '2017-12-05',
+    to: '2017-12-16',
+    editUrl: 'url://for.editting/?the=item',
+    availabilityUrl: 'url://to-do.an/availability/check',
+    price: 860,
+    currencyCode: 'EUR',
+  },
+  trip: {
+    destination: 'YYZ',
+    alias: 'Die Küste Südkaliforniens (ab San Francisco)',
+    imageUrl: 'url://to-vehicle.img',
+  },
+  route: [
+    {
+      type: 'accommodation',
+      date: '2018-05-03',
+      location: 'Santa Maria',
+      latitude: '48.139497',
+      longitude: '11.563788',
+      description: 'Travelodge Santa Maria',
+    },
+    ...
+  ],
+  travellers: [
+    {
+      gender: 'male',  // 'male', 'female', 'child'
+      name: 'john doe',
+      birthDate: '1983-11-08',
+    },
+    ...
+  ],
+}
+```
 
 
 ## Debugging
 
-Sadly the debugging in some cases is not possible but the connector nevertheless provides some debugging output - 
-either you set the connector option `.debug` to `true` or you add the parameter "debug" to your URL.
-It will open an extra window for debug outputs.
+The connector provides some debugging output - either you set the connectionOption `debug` to `true` or 
+you add the parameter "&debug" to your URL. You will see the debug output in the browser console.
 
 
 ### How to test ...
 
 #### ... the code
 
-Write a test and execute `npm run test` - the unit tests will tell you, if everything is fine. 
+Write a test and execute `npm run test` - the unit tests will tell you, if everything is fine.
 Personal goal: Try to increase the test coverage to ~100%.
 
+#### ... the connector
 
-## You have questions or problems with the implementation?
-
-Check the [FAQs](FAQ.md) first!
+We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/external) of the BM.
+Just execute `npm run serve` and use the provided URL.

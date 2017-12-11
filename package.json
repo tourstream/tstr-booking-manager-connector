@@ -16,12 +16,13 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist && webpack --config webpack.config.js",
+    "build": "npm run build:dev && webpack --config webpack.config.prod.js",
+    "build:dev": "rimraf dist && webpack --config webpack.config.dev.js && cp dist/** tests/manual/assets/",
     "postbuild": "node prepare-gcs.js",
     "test": "karma start karma.config.js --single-run",
     "preversion": "npm test",
-    "version": "npm run build",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "serve": "npm run build:dev && ws --https --hostname localhost --port 1337 --directory ./tests/manual --static.index index.html"
   },
   "files": [
     "/dist/"
@@ -53,6 +54,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.6",
     "loader-utils": "^1.1.0",
+    "local-web-server": "^2.3.0",
     "phantomjs-prebuilt": "^2.1.16",
     "rimraf": "^2.6.2",
     "webpack": "^3.8.1"

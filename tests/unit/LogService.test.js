@@ -1,4 +1,4 @@
-import LogService from '../src/LogService';
+import LogService from '../../src/LogService';
 
 describe('LogService', () => {
     let logger, consoleSpy;

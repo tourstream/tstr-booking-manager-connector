@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta http-equiv="X-UA-Compatible" content="IE=11">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>IBE Simulator</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="assets/styles.css">
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <h1>BM connector Test</h1>
+
+            <div class="row">
+                <div class="col">
+                    <h2>Select the product type you want to transfer to the BM:</h2>
+
+                    <div id="actions">
+                        <button type="button" class="btn btn-outline-primary" value="car">car</button>
+                        <button type="button" class="btn btn-outline-primary" value="hotel">hotel</button>
+                        <button type="button" class="btn btn-outline-primary" value="roundTrip">round trip</button>
+                        <button class="btn btn-outline-warning mx-4">transfer to BM</button>
+                    </div>
+                </div>
+            </div>
+
+            <form id="ibe-form" class="form my-2">
+            </form>
+
+            <div id="templates" hidden>
+                <div id="form-field-template" class="input-group">
+                    <div class="input-group-addon form-control-sm"></div>
+                    <input type="text" class="form-control form-control-sm">
+                </div>
+
+                <div id="car-form-fields">
+                    <input type="hidden" name="type" value="car"/>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>rental</legend>
+                            <div data-form-field data-label="date" data-name="rental.date" data-value="2017-12-08"></div>
+                            <div data-form-field data-label="time" data-name="rental.time" data-value="09:40"></div>
+                            <div data-form-field data-label="duration (in minutes)" data-name="rental.duration" data-title="4 days 40 minutes" data-value="5800"></div>
+                            <div data-form-field data-label="status" data-name="rental.status" data-title="OK || RQ" data-value="OK"></div>
+                            <div data-form-field data-label="editUrl" data-name="rental.editUrl" data-title="how can i edit or search again for this product?"></div>
+                            <div data-form-field data-label="availabilityUrl" data-name="rental.availabilityUrl" data-title="how can i check if this product is still available?"></div>
+                            <div data-form-field data-label="conditionUrl" data-name="rental.conditionUrl" data-title="from where can i get the conditions of this product?"></div>
+                            <div data-form-field data-label="price" data-name="rental.price" data-value="506"></div>
+                            <div data-form-field data-label="currencyCode" data-name="rental.currencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>vehicle</legend>
+                            <div data-form-field data-label="code" data-name="vehicle.code" data-value="B1"></div>
+                            <div data-form-field data-label="category" data-name="vehicle.category" data-value="SMALL_CAR"></div>
+                            <div data-form-field data-label="name" data-name="vehicle.name" data-value="Chevrolet Spark 2-4T AU"></div>
+                            <div data-form-field data-label="imageUrl" data-name="vehicle.imageUrl" data-value="https://storage.googleapis.com/drive-ibe/img/placeholder_car"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>renter</legend>
+                            <div data-form-field data-label="name" data-name="renter.name" data-value="Meeting Point"></div>
+                            <div data-form-field data-label="logoUrl" data-name="renter.logoUrl" data-value="https://drivefti.fti.de/img/logos/MEETI.gif"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>pickUp</legend>
+                            <div data-form-field data-label="locationCode" data-name="pickUp.locationCode" data-value="ROMH"></div>
+                            <div data-form-field data-label="station code" data-name="pickUp.station.code" data-value="ITL22"></div>
+                            <div data-form-field data-label="station name" data-name="pickUp.station.name" data-value="pu station"></div>
+                            <div data-form-field data-label="station address" data-name="pickUp.station.name" data-value="pu station address"></div>
+                            <div data-form-field data-label="station phone" data-name="pickUp.station.phoneNumber" data-value="pu station phone"></div>
+                            <div data-form-field data-label="station latitude" data-name="pickUp.station.latitude" data-value="37.6213129"></div>
+                            <div data-form-field data-label="station longitude" data-name="pickUp.station.longitude" data-value="-122.3789554"></div>
+                            <div data-form-field data-label="hotel name" data-name="pickUp.hotel.name" data-value="pu hn"></div>
+                            <div data-form-field data-label="hotel address" data-name="pickUp.hotel.address" data-value="pu ha"></div>
+                            <div data-form-field data-label="hotel phone" data-name="pickUp.hotel.phoneNumber" data-value="pu hp"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>dropOff</legend>
+                            <div data-form-field data-label="locationCode" data-name="dropOff.locationCode" data-value="ROMH"></div>
+                            <div data-form-field data-label="station code" data-name="dropOff.station.code" data-value="ITL22"></div>
+                            <div data-form-field data-label="station name" data-name="dropOff.station.name" data-value="do station"></div>
+                            <div data-form-field data-label="station address" data-name="dropOff.station.name" data-value="do station address"></div>
+                            <div data-form-field data-label="station phone" data-name="dropOff.station.phoneNumber" data-value="do station phone"></div>
+                            <div data-form-field data-label="station latitude" data-name="dropOff.station.latitude" data-value="do lat"></div>
+                            <div data-form-field data-label="station longitude" data-name="dropOff.station.longitude" data-value="do long"></div>
+                            <div data-form-field data-label="hotel name" data-name="dropOff.hotel.name" data-value="do hn"></div>
+                            <div data-form-field data-label="hotel address" data-name="dropOff.hotel.address" data-value="do ha"></div>
+                            <div data-form-field data-label="hotel phone" data-name="dropOff.hotel.phoneNumber" data-value="do hp"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>services</legend>
+                            <div data-form-field data-label="liability amount" data-name="services.liability.amount" data-value="1000000"></div>
+                            <div data-form-field data-label="liability currencyCode" data-name="services.liability.currencyCode" data-value="EUR"></div>
+                            <div data-form-field data-label="includedMileage amount" data-name="services.includedMileage.amount" data-value="Infinity"></div>
+                            <div data-form-field data-label="firstAdditionalDriver amount" data-name="services.firstAdditionalDriver.amount" data-value="2"></div>
+                            <div data-form-field data-label="feeST amount" data-name="services.feeST.amount" data-value="Infinity"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>extras</legend>
+                            <div data-form-field data-label="additionalDriver amount" data-name="extras.additionalDriver.amount" data-value="3"></div>
+                            <div data-form-field data-label="additionalDriver totalPrice" data-name="extras.additionalDriver.totalPrice" data-value="210"></div>
+                            <div data-form-field data-label="additionalDriver currencyCode" data-name="extras.additionalDriver.currencyCode" data-value="USD"></div>
+                            <div data-form-field data-label="additionalDriver exchangeTotalPrice" data-name="extras.additionalDriver.exchangeTotalPrice" data-value="189.11"></div>
+                            <div data-form-field data-label="additionalDriver exchangeCurrencyCode" data-name="extras.additionalDriver.exchangeCurrencyCode" data-value="EUR"></div>
+                            <div data-form-field data-label="oneWayFee amount" data-name="extras.oneWayFee.amount" data-value="1"></div>
+                            <div data-form-field data-label="oneWayFee totalPrice" data-name="extras.oneWayFee.totalPrice" data-value="0"></div>
+                            <div data-form-field data-label="oneWayFee currencyCode" data-name="extras.oneWayFee.currencyCode" data-value="EUR"></div>
+                            <div data-form-field data-label="childCareSeat3 amount" data-name="extras.childCareSeat3.amount" data-value="1"></div>
+                            <div data-form-field data-label="navigationSystem amount" data-name="extras.navigationSystem.amount" data-value="1"></div>
+                            <div data-form-field data-label="navigationSystem totalPrice" data-name="extras.navigationSystem.totalPrice" data-value="10"></div>
+                            <div data-form-field data-label="navigationSystem currencyCode" data-name="extras.navigationSystem.currencyCode" data-value="EUR"></div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div id="hotel-form-fields">
+                    <input type="hidden" name="type" value="hotel"/>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>booking</legend>
+                            <div data-form-field data-label="from" data-name="booking.from" data-value="2017-09-20"></div>
+                            <div data-form-field data-label="to" data-name="booking.to" data-value="2017-09-27"></div>
+                            <div data-form-field data-label="editUrl" data-name="booking.editUrl" data-title="how can i edit or search again for this product?"></div>
+                            <div data-form-field data-label="availabilityUrl" data-name="booking.availabilityUrl" data-title="how can i check if this product is still available?"></div>
+                            <div data-form-field data-label="price" data-name="booking.price" data-value="208"></div>
+                            <div data-form-field data-label="currencyCode" data-name="booking.currencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>hotel</legend>
+                            <div data-form-field data-label="destination" data-name="hotel.destination" data-value="MUC"></div>
+                            <div data-form-field data-label="name" data-name="hotel.name" data-value="Hotel ibis Muenchen City Sued"></div>
+                            <div data-form-field data-label="imageUrl" data-name="hotel.imageUrl" data-value="https://www.labranda.com/fileadmin/user_upload/Labranda_MainBrandLogo.svg"></div>
+                            <div data-form-field data-label="class" data-name="hotel.class" data-value="5"></div>
+                            <div data-form-field data-label="address" data-name="hotel.address" data-value="Raintaler Str.47, 81539, Munich, DE"></div>
+                            <div data-form-field data-label="latitude" data-name="hotel.latitude" data-value="48.139497"></div>
+                            <div data-form-field data-label="latitude" data-name="hotel.longitude" data-value="11.563788"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>room</legend>
+                            <div data-form-field data-label="code" data-name="room.roomCode" data-value="DZ"></div>
+                            <div data-form-field data-label="quantity" data-name="room.roomQuantity" data-value="2"></div>
+                            <div data-form-field data-label="occupancy" data-name="room.roomOccupancy" data-value="4"></div>
+                            <div data-form-field data-label="mealCode" data-name="room.mealCode" data-value="U"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>travellers</legend>
+                            <div data-form-field data-label="gender 1" data-name="travellers.0.gender" data-value="male"></div>
+                            <div data-form-field data-label="name 1" data-name="travellers.0.name" data-value="john doe"></div>
+                            <div data-form-field data-label="birthDate 1" data-name="travellers.0.birthDate" data-value="1983-11-08"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="gender 2" data-name="travellers.1.gender" data-value="female"></div>
+                            <div data-form-field data-label="name 2" data-name="travellers.1.name" data-value="jane doe"></div>
+                            <div data-form-field data-label="birthDate 2" data-name="travellers.1.birthDate" data-value="1983-07-23"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="gender 3" data-name="travellers.2.gender" data-value="child"></div>
+                            <div data-form-field data-label="name 3" data-name="travellers.2.name" data-value="jude doe"></div>
+                            <div data-form-field data-label="birthDate 3" data-name="travellers.2.birthDate" data-value="2012-02-16"></div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div id="roundTrip-form-fields">
+                    <input type="hidden" name="type" value="roundTrip"/>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>booking</legend>
+                            <div data-form-field data-label="id" data-name="booking.id" data-value="E2784NQXTHEN"></div>
+                            <div data-form-field data-label="from" data-name="booking.from" data-value="2017-12-05"></div>
+                            <div data-form-field data-label="to" data-name="booking.to" data-value="2017-12-16"></div>
+                            <div data-form-field data-label="editUrl" data-name="booking.editUrl" data-title="how can i edit or search again for this product?"></div>
+                            <div data-form-field data-label="availabilityUrl" data-name="booking.availabilityUrl" data-title="how can i check if this product is still available?"></div>
+                            <div data-form-field data-label="price" data-name="booking.price" data-value="860"></div>
+                            <div data-form-field data-label="currencyCode" data-name="booking.currencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>trip</legend>
+                            <div data-form-field data-label="destination" data-name="trip.destination" data-value="YYZ"></div>
+                            <div data-form-field data-label="alias" data-name="trip.alias" data-value="Die Küste Südkaliforniens (ab San Francisco)"></div>
+                            <div data-form-field data-label="imageUrl" data-name="trip.imageUrl" data-value="https://www.nezasa.com/wp-content/uploads/2017/02/Slide1.jpg"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>route</legend>
+                            <div data-form-field data-label="stop 1 type" data-name="route.0.type" data-value="transfer"></div>
+                            <div data-form-field data-label="stop 1 date" data-name="route.0.date" data-value="2018-05-03"></div>
+                            <div data-form-field data-label="stop 1 location" data-name="route.0.location" data-value="Santa Maria Airport"></div>
+                            <div data-form-field data-label="stop 1 latitude" data-name="route.0.latitude" data-value="48.139497"></div>
+                            <div data-form-field data-label="stop 1 longitude" data-name="route.0.longitude" data-value="11.563788"></div>
+                            <div data-form-field data-label="stop 1 description" data-name="route.0.description" data-value="Transfer from airport to hotel"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp</legend>
+                            <div data-form-field data-label="stop 2 type" data-name="route.1.type" data-value="accommodation"></div>
+                            <div data-form-field data-label="stop 2 date" data-name="route.1.date" data-value="2018-05-03"></div>
+                            <div data-form-field data-label="stop 2 location" data-name="route.1.location" data-value="Santa Maria"></div>
+                            <div data-form-field data-label="stop 2 latitude" data-name="route.1.latitude" data-value="48.139497"></div>
+                            <div data-form-field data-label="stop 2 longitude" data-name="route.1.longitude" data-value="11.563788"></div>
+                            <div data-form-field data-label="stop 2 description" data-name="route.1.description" data-value="Travelodge Santa Maria"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>travellers</legend>
+                            <div data-form-field data-label="gender 1" data-name="travellers.0.gender" data-value="male"></div>
+                            <div data-form-field data-label="name 1" data-name="travellers.0.name" data-value="john doe"></div>
+                            <div data-form-field data-label="birthDate 1" data-name="travellers.0.birthDate" data-value="1983-11-08"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="gender 2" data-name="travellers.1.gender" data-value="female"></div>
+                            <div data-form-field data-label="name 2" data-name="travellers.1.name" data-value="jane doe"></div>
+                            <div data-form-field data-label="birthDate 2" data-name="travellers.1.birthDate" data-value="1983-07-23"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="gender 3" data-name="travellers.2.gender" data-value="child"></div>
+                            <div data-form-field data-label="name 3" data-name="travellers.2.name" data-value="jude doe"></div>
+                            <div data-form-field data-label="birthDate 3" data-name="travellers.2.birthDate" data-value="2012-02-16"></div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<script src="assets/bookingManagerConnector.js"></script>
+        <script src="assets/scripts.js"></script>
+	</body>
+</html>
