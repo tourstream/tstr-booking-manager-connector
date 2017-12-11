@@ -91,14 +91,14 @@ Depending on the `type` the structure of the `dataObject` differs.
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
     conditionUrl: 'url://to-the.conditions',
+    price: 506,
+    currencyCode: 'EUR',
   },
   vehicle: {
     code: 'E2',
     category: 'SMALL_CAR',
     name: 'Chevrolet Spark 2-4T AU',
     imageUrl: 'url://to-vehicle.img',
-    price: 506,
-    currencyCode: 'EUR',
   },
   renter: {
     name: 'Meeting Point',
@@ -182,23 +182,25 @@ Depending on the `type` the structure of the `dataObject` differs.
   booking: {
     from: '2017-09-20',
     to: '2017-09-27',
-    destination: 'MUC',
-    mealCode: 'U',
-    roomCode: 'DZ',
-    roomQuantity: 2,
-    roomOccupancy: 4,
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
+    price: 208,
+    currencyCode: 'EUR',
   },
   hotel: {
+    destination: 'MUC',
+    class: 3,
     name: 'Hotel ibis Muenchen City Sued',
     imageUrl: 'url://to-vehicle.img',
-    class: 3,
     address: 'Raintaler Str.47, 81539, Munich, DE',
     latitude: '48.139497',
     longitude: '11.563788',
-    price: 208,
-    currencyCode: 'EUR',
+  },
+  room: {
+    code: 'DZ',
+    quantity: 2,
+    occupancy: 4,
+    mealCode: 'U',
   },
   travellers: [
     {
@@ -219,21 +221,21 @@ Depending on the `type` the structure of the `dataObject` differs.
   type: BookingManagerConnector.DATA_TYPES.roundTrip,
   booking: {
     id: 'E2784NQXTHEN',
-    destination: 'YYZ',
     from: '2017-12-05',
     to: '2017-12-16',
     editUrl: 'url://for.editting/?the=item',
     availabilityUrl: 'url://to-do.an/availability/check',
-  },
-  trip: {
-    alias: 'Die Küste Südkaliforniens (ab San Francisco)',
-    imageUrl: 'url://to-vehicle.img',
     price: 860,
     currencyCode: 'EUR',
   },
+  trip: {
+    destination: 'YYZ',
+    alias: 'Die Küste Südkaliforniens (ab San Francisco)',
+    imageUrl: 'url://to-vehicle.img',
+  },
   route: [
     {
-      type: 'accomodation',
+      type: 'accommodation',
       date: '2018-05-03',
       location: 'Santa Maria',
       latitude: '48.139497',

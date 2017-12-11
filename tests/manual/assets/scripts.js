@@ -40,7 +40,7 @@
 
             label.innerHTML = placeholderField.dataset.label;
             input.name = placeholderField.dataset.name;
-            input.value = placeholderField.dataset.value;
+            input.value = placeholderField.dataset.value || '';
             input.title = placeholderField.dataset.title || '';
 
             placeholderField.parentNode.replaceChild(formGroup, placeholderField);
@@ -49,7 +49,6 @@
 
     function resetForm() {
         ibeForm.innerHTML = '';
-        ibeForm.appendChild(document.getElementById('base-form-fields').cloneNode(true));
     }
 
     function selectProductForm(type) {
@@ -58,36 +57,12 @@
 
     function sendData() {
         let data = {};
-        let service = {};
 
         Object.keys(ibeForm).forEach((key) => {
-            if (ibeForm[key].name.indexOf('service.') === 0) {
-                service[ibeForm[key].name.split('.')[1]] = ibeForm[key].value;
-            } else if (ibeForm[key].name.indexOf('children.') === 0) {
-                service.children = service.children || [];
+            if (!ibeForm[key].name) return;
 
-                let value = ibeForm[key].value;
-
-                if (!value) return;
-
-                let index = ibeForm[key].name.split('.')[1];
-                let child = service.children[index] || {};
-
-                child[ibeForm[key].name.split('.')[2]] = value;
-
-                service.children[index] = child;
-            } else if (ibeForm[key].name.indexOf('extra.') === 0) {
-                if (!service.extras) {
-                    service.extras = [];
-                }
-
-                service.extras.push(ibeForm[key].value);
-            } else {
-                data[ibeForm[key].name] = ibeForm[key].value;
-            }
+            setValueToPropertyPath(data, ibeForm[key].name, ibeForm[key].value);
         });
-
-        data.services = [service];
 
         console.log('collected data', data);
 
@@ -101,6 +76,25 @@
 
             bmConnector.addToBasket(data).catch(console.log);
         }, console.log);
+    }
+
+    function setValueToPropertyPath(object, path, value) {
+        let parts = path.split('.');
+        let property = parts.shift();
+
+        if (path === property) {
+            object[property] = value === 'Infinity' ? Infinity : value;
+
+            return;
+        }
+
+        if (isFinite(parts[0])) {
+            object[property] = object[property] || [];
+        } else {
+            object[property] = object[property] || {};
+        }
+
+        setValueToPropertyPath(object[property], parts.join('.'), value);
     }
 })();
 
