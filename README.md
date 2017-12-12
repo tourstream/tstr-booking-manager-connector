@@ -76,7 +76,7 @@ Currently the connector supports following types:
 - `'roundtrip'`
 
 Depending on the `type` the structure of the `dataObject` differs.
-
+Only properties which are set will be send to the BM.
 
 #### example for type `'car'`
 
@@ -202,9 +202,9 @@ Depending on the `type` the structure of the `dataObject` differs.
   },
   hotel: {
     destination: 'MUC',
-    class: 3,
+    category: 3,
     name: 'Hotel ibis Muenchen City Sued',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'url://to-hotel.img',
     address: 'Raintaler Str.47, 81539, Munich, DE',
     latitude: '48.139497',
     longitude: '11.563788',
@@ -217,9 +217,16 @@ Depending on the `type` the structure of the `dataObject` differs.
   },
   travellers: [
     {
-      gender: 'male',  // 'male', 'female', 'child'
+      type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',
+      birthDate: '1983-11-08',  // alternatively the age
+    },
+    {
+      type: 'child',
+      birthDate: '4',
+    },
+    {
+      type: 'infant',
     },
     ...
   ],
@@ -236,32 +243,39 @@ Depending on the `type` the structure of the `dataObject` differs.
     id: 'E2784NQXTHEN',
     from: '2017-12-05',
     to: '2017-12-16',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
     price: 860,
     currencyCode: 'EUR',
   },
   trip: {
     destination: 'YYZ',
     alias: 'Die Küste Südkaliforniens (ab San Francisco)',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'url://to-round-trip.img',
   },
   route: [
     {
       type: 'accommodation',
-      date: '2018-05-03',
+      fromDate: '2018-05-03',
+      toDate: '2018-05-05',
       location: 'Santa Maria',
+      hotel: 'Travelodge Santa Maria',
+      rooms: 'Double/Twin Room',
       latitude: '48.139497',
       longitude: '11.563788',
-      description: 'Travelodge Santa Maria',
     },
     ...
   ],
   travellers: [
     {
-      gender: 'male',  // 'male', 'female', 'child'
+      type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',
+      birthDate: '1983-11-08',  // alternatively the age
+    },
+    {
+      type: 'child',
+      birthDate: '4',
+    },
+    {
+      type: 'infant',
     },
     ...
   ],
