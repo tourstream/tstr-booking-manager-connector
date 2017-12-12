@@ -22,8 +22,8 @@ const CONFIG = {
 
 const TYPE_2_DATE_PROPERTIES = {
     [DATA_TYPES.car]: ['rental.date'],
-    [DATA_TYPES.hotel]: ['booking.from', 'booking.to', 'travellers.birthDate'],
-    [DATA_TYPES.roundTrip]: ['booking.from', 'booking.to', 'route.date', 'travellers.birthDate'],
+    [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate'],
+    [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {

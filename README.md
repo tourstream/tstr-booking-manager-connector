@@ -102,8 +102,8 @@ Only properties which are defined will be send to the BM.
   },
   renter: {
     code: 'USA81',
-    name: 'Meeting Point',
-    logoUrl: 'url://to-renter.logo',
+    name: 'Alamo',
+    logoUrl: 'example://url-to-renter.logo',
   },
   pickUp: {
     type: 'station',
@@ -174,8 +174,8 @@ Only properties which are defined will be send to the BM.
 {
   type: BookingManagerConnector.DATA_TYPES.hotel,
   booking: {
-    from: '2017-09-20',
-    to: '2017-09-27',
+    fromDate: '2017-09-20',
+    toDate: '2017-09-27',
     editUrl: 'example://url-for.editting/?the=item',
     availabilityUrl: 'example://url-to-do.an/availability/check',
     price: 208,
@@ -195,6 +195,11 @@ Only properties which are defined will be send to the BM.
       code: 'DZ',
       quantity: 2,
       occupancy: 3,
+      mealCode: 'U',
+    },
+    {
+      code: 'DZ',
+      occupancy: 1,
       mealCode: 'U',
     },
     ...
@@ -225,8 +230,8 @@ Only properties which are defined will be send to the BM.
   type: BookingManagerConnector.DATA_TYPES.roundTrip,
   booking: {
     id: 'E2784NQXTHEN',
-    from: '2017-12-05',
-    to: '2017-12-16',
+    fromDate: '2017-12-05',
+    toDate: '2017-12-16',
     price: 860,
     currencyCode: 'EUR',
   },

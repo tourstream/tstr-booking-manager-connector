@@ -160,24 +160,18 @@ describe('BookingManagerConnector', () => {
             let data = {
                 type: DATA_TYPES.hotel,
                 booking: {
-                    from: '20181108',
-                    to: '20181118',
+                    fromDate: '20181108',
+                    toDate: '20181118',
                 },
-                travellers: [
-                    { birthDate: '19831108' },
-                ],
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.hotel,
                 booking: {
-                    from: '2018-11-08',
-                    to: '2018-11-18',
+                    fromDate: '2018-11-08',
+                    toDate: '2018-11-18',
                 },
-                travellers: [
-                    { birthDate: '1983-11-08' },
-                ],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -192,14 +186,14 @@ describe('BookingManagerConnector', () => {
             let data = {
                 type: DATA_TYPES.roundTrip,
                 booking: {
-                    from: '20181108',
-                    to: '20181118',
+                    fromDate: '20181108',
+                    toDate: '20181118',
                 },
                 route: [
-                    { date: '20181207' },
-                ],
-                travellers: [
-                    { birthDate: '19831108'},
+                    {
+                        fromDate: '20181207',
+                        toDate: '20181217',
+                    },
                 ],
             };
 
@@ -207,14 +201,14 @@ describe('BookingManagerConnector', () => {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.roundTrip,
                 booking: {
-                    from: '2018-11-08',
-                    to: '2018-11-18',
+                    fromDate: '2018-11-08',
+                    toDate: '2018-11-18',
                 },
                 route: [
-                    { date: '2018-12-07' },
-                ],
-                travellers: [
-                    { birthDate: '1983-11-08'},
+                    {
+                        fromDate: '2018-12-07',
+                        toDate: '2018-12-17',
+                    },
                 ],
             };
 
