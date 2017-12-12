@@ -105,7 +105,9 @@ Depending on the `type` the structure of the `dataObject` differs.
     logoUrl: 'url://to-renter.logo',
   },
   pickUp: {
-    locationCode: 'MIA3',  /** 4LC **/
+    location: {
+      code: 'MIA3',  /** 4LC **/
+    },
     station: {
       code: 'USA81',
       name: 'Meeting Point',
@@ -121,7 +123,9 @@ Depending on the `type` the structure of the `dataObject` differs.
     },
   },
   dropOff: {
-    locationCode: 'SFO',  /** 4LC **/
+    location: {
+      code: 'SFO',  /** 4LC **/
+    },
     station: {
       code: 'USA81',
       name: 'Meeting Point',
@@ -136,40 +140,45 @@ Depending on the `type` the structure of the `dataObject` differs.
       phoneNumber: '+49 172 678 0832 09',
     },
   },
-  services: {
-    liability: {
+  services: [
+    {
+      type: 'liability',
       amount: 1000000,
-      currencyCode: 'EUR',
+      currencyCode: 'USD',
     },
-    includedMileage: {
+    {
+      type: 'includedMileage'
       amount: Infinity,  /** means "unlimited" **/
     },
-    firstAdditionalDriver: {
+    {
+      type: 'firstAdditionalDriver'
       amount: 2,
     },
-    feeST: {
-      amount: Infinity,
-    },
+    { type: 'feeST' },
     ...,
-  },
-  extras: {
-    additionalDriver: {
+  ],
+  extras: [
+    {
+      type: 'additionalDriver'
       amount: 3,
       totalPrice: 210,
       currencyCode: 'USD',
       exchangeTotalPrice: 189.11,
       exchangeCurrencyCode: 'EUR',
     },
-    oneWayFee: {
-      amount: 1,
-      totalPrice: 0,
-      currencyCode: 'EUR',
+    {
+      type: 'childCareSeat',
+      option: 3,
     },
-    childCareSeat3: {
-      amount: 1,
+    {
+      type: 'oneWayFee'
+      totalPrice: 0,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 0,
+      exchangeCurrencyCode: 'EUR',
     },
     ...,
-  }, 
+  ], 
 }
 ```
 

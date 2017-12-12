@@ -59,7 +59,7 @@
         let data = {};
 
         Object.keys(ibeForm).forEach((key) => {
-            if (!ibeForm[key].name) return;
+            if (!ibeForm[key].name || ibeForm[key].value === '') return;
 
             setValueToPropertyPath(data, ibeForm[key].name, ibeForm[key].value);
         });

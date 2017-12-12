@@ -72,7 +72,7 @@
                     <div class="form-row">
                         <fieldset class="col my-1">
                             <legend>pickUp</legend>
-                            <div data-form-field data-label="locationCode" data-name="pickUp.locationCode" data-value="ROMH"></div>
+                            <div data-form-field data-label="locationCode" data-name="pickUp.location.code" data-value="ROMH"></div>
                             <div data-form-field data-label="station code" data-name="pickUp.station.code" data-value="ITL22"></div>
                             <div data-form-field data-label="station name" data-name="pickUp.station.name" data-value="pu station"></div>
                             <div data-form-field data-label="station address" data-name="pickUp.station.name" data-value="pu station address"></div>
@@ -86,7 +86,7 @@
 
                         <fieldset class="col my-1">
                             <legend>dropOff</legend>
-                            <div data-form-field data-label="locationCode" data-name="dropOff.locationCode" data-value="ROMH"></div>
+                            <div data-form-field data-label="locationCode" data-name="dropOff.location.code" data-value="ROMH"></div>
                             <div data-form-field data-label="station code" data-name="dropOff.station.code" data-value="ITL22"></div>
                             <div data-form-field data-label="station name" data-name="dropOff.station.name" data-value="do station"></div>
                             <div data-form-field data-label="station address" data-name="dropOff.station.name" data-value="do station address"></div>
@@ -102,27 +102,58 @@
                     <div class="form-row">
                         <fieldset class="col my-1">
                             <legend>services</legend>
-                            <div data-form-field data-label="liability amount" data-name="services.liability.amount" data-value="1000000"></div>
-                            <div data-form-field data-label="liability currencyCode" data-name="services.liability.currencyCode" data-value="EUR"></div>
-                            <div data-form-field data-label="includedMileage amount" data-name="services.includedMileage.amount" data-value="Infinity"></div>
-                            <div data-form-field data-label="firstAdditionalDriver amount" data-name="services.firstAdditionalDriver.amount" data-value="2"></div>
-                            <div data-form-field data-label="feeST amount" data-name="services.feeST.amount" data-value="Infinity"></div>
+                            <div data-form-field data-label="type" data-name="services.0.type" data-value="liability"></div>
+                            <div data-form-field data-label="amount" data-name="services.0.amount" data-value="1000000"></div>
+                            <div data-form-field data-label="currencyCode" data-name="services.0.currencyCode" data-value="EUR"></div>
                         </fieldset>
 
                         <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="services.1.type" data-value="includedMileage"></div>
+                            <div data-form-field data-label="amount" data-name="services.1.amount" data-value="Infinity"></div>
+                            <div data-form-field data-label="currencyCode" data-name="services.1.currencyCode"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="services.2.type" data-value="feeST"></div>
+                            <div data-form-field data-label="amount" data-name="services.2.amount"></div>
+                            <div data-form-field data-label="currencyCode" data-name="services.2.currencyCode"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
                             <legend>extras</legend>
-                            <div data-form-field data-label="additionalDriver amount" data-name="extras.additionalDriver.amount" data-value="3"></div>
-                            <div data-form-field data-label="additionalDriver totalPrice" data-name="extras.additionalDriver.totalPrice" data-value="210"></div>
-                            <div data-form-field data-label="additionalDriver currencyCode" data-name="extras.additionalDriver.currencyCode" data-value="USD"></div>
-                            <div data-form-field data-label="additionalDriver exchangeTotalPrice" data-name="extras.additionalDriver.exchangeTotalPrice" data-value="189.11"></div>
-                            <div data-form-field data-label="additionalDriver exchangeCurrencyCode" data-name="extras.additionalDriver.exchangeCurrencyCode" data-value="EUR"></div>
-                            <div data-form-field data-label="oneWayFee amount" data-name="extras.oneWayFee.amount" data-value="1"></div>
-                            <div data-form-field data-label="oneWayFee totalPrice" data-name="extras.oneWayFee.totalPrice" data-value="0"></div>
-                            <div data-form-field data-label="oneWayFee currencyCode" data-name="extras.oneWayFee.currencyCode" data-value="EUR"></div>
-                            <div data-form-field data-label="childCareSeat3 amount" data-name="extras.childCareSeat3.amount" data-value="1"></div>
-                            <div data-form-field data-label="navigationSystem amount" data-name="extras.navigationSystem.amount" data-value="1"></div>
-                            <div data-form-field data-label="navigationSystem totalPrice" data-name="extras.navigationSystem.totalPrice" data-value="10"></div>
-                            <div data-form-field data-label="navigationSystem currencyCode" data-name="extras.navigationSystem.currencyCode" data-value="EUR"></div>
+                            <div data-form-field data-label="type" data-name="extras.0.type" data-value="additionalDriver"></div>
+                            <div data-form-field data-label="amount" data-name="extras.0.amount" data-value="3"></div>
+                            <div data-form-field data-label="option" data-name="extras.0.option"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.0.totalPrice" data-value="210"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.0.currencyCode" data-value="USD"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.0.exchangeTotalPrice" data-value="189.11"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.0.exchangeCurrencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="extras.1.type" data-value="oneWayFee"></div>
+                            <div data-form-field data-label="amount" data-name="extras.1.amount"></div>
+                            <div data-form-field data-label="option" data-name="extras.1.option"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.1.totalPrice" data-value="0"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.1.currencyCode" data-value="USD"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.1.exchangeTotalPrice" data-value="0"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.1.exchangeCurrencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="extras.2.type" data-value="childCareSeat"></div>
+                            <div data-form-field data-label="amount" data-name="extras.2.amount"></div>
+                            <div data-form-field data-label="option" data-name="extras.2.option" data-value="3"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.2.totalPrice"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.2.currencyCode"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.2.exchangeTotalPrice"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.2.exchangeCurrencyCode"></div>
                         </fieldset>
                     </div>
                 </div>
