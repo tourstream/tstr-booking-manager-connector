@@ -101,48 +101,27 @@ Only properties which are set will be send to the BM.
     imageUrl: 'url://to-vehicle.img',
   },
   renter: {
+    code: 'USA81',
     name: 'Meeting Point',
     logoUrl: 'url://to-renter.logo',
   },
   pickUp: {
-    location: {
-      code: 'MIA3',  /** 4LC **/
-      name: 'MIAMI SOUTH BEACH',
-      address: '3900 NW 25TH STREET',
-    },
-    station: {
-      code: 'USA83',
-      name: 'Alamo',
-      address: '4332 Collins Avenue, Miami South Beach',
-      phoneNumber: '(305) 532-8257',
-      latitude: '25.8149316',
-      longitude: '-80.1230047',
-    },
-    hotel: {
-      name: 'Best Hotel',
-      address: 'hotel street 1, 12345 hotel city',
-      phoneNumber: '+49 172 678 0832 09',
-    },
+    type: 'station',
+    locationCode: 'MIA3',  /** 4LC **/
+    name: 'Alamo',
+    address: '4332 Collins Avenue, Miami South Beach',
+    phoneNumber: '(305) 532-8257',
+    latitude: '25.8149316',
+    longitude: '-80.1230047',
   },
   dropOff: {
-    location: {
-      code: 'SFO',  /** 4LC **/
-      name: 'SAN FRANCISCO AIRPORT',
-      address: '780 MCDONNELL ROAD',
-    },
-    station: {
-      code: 'USA81',
-      name: 'Meeting Point',
-      address: '780 Mcdonnell Road, San Francisco Airport',
-      phoneNumber: '(650) 616-2400',
-      latitude: '37.6213129',
-      longitude: '-122.3789554',
-    },
-    hotel: {
-      name: 'Very Best Hotel',
-      address: 'hotel street 2, 6789 hotel town',
-      phoneNumber: '+49 454 878 97943',
-    },
+    type: 'hotel',
+    locationCode: 'SFOH',  /** 4LC **/
+    name: 'Best Hotel',
+    address: 'hotel street 1, 12345 hotel city',
+    phoneNumber: '+49 172 678 0832 09',
+    latitude: '37.6213129',
+    longitude: '-122.3789554',
   },
   services: [
     {
