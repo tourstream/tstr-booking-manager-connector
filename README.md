@@ -76,7 +76,7 @@ Currently the connector supports following types:
 - `'roundtrip'`
 
 Depending on the `type` the structure of the `dataObject` differs.
-Only properties which are set will be send to the BM.
+Only properties which are defined will be send to the BM.
 
 #### example for type `'car'`
 
@@ -88,9 +88,9 @@ Only properties which are set will be send to the BM.
     time: '09:15', 
     duration: 12960,  /** in minutes **/
     status: 'OK',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
-    conditionUrl: 'url://to-the.conditions',
+    editUrl: 'example://url-for.editting/?the=item',
+    availabilityUrl: 'example://url-to-do.an/availability/check',
+    conditionUrl: 'example://url-to-the.conditions',
     price: 506,
     currencyCode: 'EUR',
   },
@@ -98,7 +98,7 @@ Only properties which are set will be send to the BM.
     code: 'E2',
     category: 'SMALL_CAR',
     name: 'Chevrolet Spark 2-4T AU',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'example://url-to-vehicle.img',
   },
   renter: {
     code: 'USA81',
@@ -137,7 +137,9 @@ Only properties which are set will be send to the BM.
       type: 'firstAdditionalDriver'
       amount: 2,
     },
-    { type: 'feeST' },
+    { 
+      type: 'feeST',
+    },
     ...,
   ],
   extras: [
@@ -174,8 +176,8 @@ Only properties which are set will be send to the BM.
   booking: {
     from: '2017-09-20',
     to: '2017-09-27',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
+    editUrl: 'example://url-for.editting/?the=item',
+    availabilityUrl: 'example://url-to-do.an/availability/check',
     price: 208,
     currencyCode: 'EUR',
   },
@@ -183,7 +185,7 @@ Only properties which are set will be send to the BM.
     destination: 'MUC',
     category: 3,
     name: 'Hotel ibis Muenchen City Sued',
-    imageUrl: 'url://to-hotel.img',
+    imageUrl: 'example://url-to-hotel.img',
     address: 'Raintaler Str.47, 81539, Munich, DE',
     latitude: '48.139497',
     longitude: '11.563788',
@@ -201,11 +203,11 @@ Only properties which are set will be send to the BM.
     {
       type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',  // alternatively the age
+      age: 32,
     },
     {
       type: 'child',
-      birthDate: '4',
+      age: 4,
     },
     {
       type: 'infant',
@@ -231,7 +233,7 @@ Only properties which are set will be send to the BM.
   trip: {
     destination: 'YYZ',
     alias: 'Die Küste Südkaliforniens (ab San Francisco)',
-    imageUrl: 'url://to-round-trip.img',
+    imageUrl: 'example://url-to-round-trip.img',
   },
   route: [
     {
@@ -240,7 +242,16 @@ Only properties which are set will be send to the BM.
       toDate: '2018-05-05',
       location: 'Santa Maria',
       hotel: 'Travelodge Santa Maria',
-      rooms: 'Double/Twin Room',
+      rooms: [
+        {
+          name: 'Double/Twin Room',
+          quantity: 2,
+        },
+        {
+          name: 'Princess Suite',
+        },
+        ...
+      ],
       latitude: '48.139497',
       longitude: '11.563788',
     },
@@ -250,11 +261,11 @@ Only properties which are set will be send to the BM.
     {
       type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',  // alternatively the age
+      age: 32,
     },
     {
       type: 'child',
-      birthDate: '4',
+      age: 4,
     },
     {
       type: 'infant',
