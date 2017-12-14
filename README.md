@@ -190,20 +190,12 @@ Only properties which are defined will be send to the BM.
     latitude: '48.139497',
     longitude: '11.563788',
   },
-  rooms: [
-    {
-      code: 'DZ',
-      quantity: 2,
-      occupancy: 3,
-      mealCode: 'U',
-    },
-    {
-      code: 'DZ',
-      occupancy: 1,
-      mealCode: 'U',
-    },
-    ...
-  ],
+  room: {
+    code: 'DZ',
+    quantity: 2,
+    occupancy: 3,
+    mealCode: 'U',
+  },
   travellers: [
     {
       type: 'male',  // 'male', 'female', 'child', 'infant'
