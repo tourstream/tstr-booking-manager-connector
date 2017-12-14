@@ -65,7 +65,7 @@ class BookingManagerConnector {
         });
     }
 
-    exit() {
+    done() {
         this.getConnection().destroy();
 
         return Promise.resolve();

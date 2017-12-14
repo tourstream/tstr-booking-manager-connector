@@ -275,8 +275,8 @@ describe('BookingManagerConnector', () => {
             adapter.directCheckout(data);
         });
 
-        it('exit() should destroy connection', () => {
-            adapter.exit();
+        it('done() should destroy connection', () => {
+            adapter.done();
 
             expect(connection.destroy).toHaveBeenCalled();
         });

@@ -54,8 +54,8 @@ The connector provides several functions for the communication with the BM.
 ```
 bmConnector.connect();                    // establish the connection to the BM
 bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM
-bmConnector.directCheckout(dataObject);   // handover an item to the BM and triggers the transfer to the CRS
-bmConnector.exit();                       // destroy the connection to the BM
+bmConnector.directCheckout(dataObject);   // handover an item to the BM and mark it for direct transfer to the CRS
+bmConnector.done();                       // tell the BM to process the items and proceed with the BM workflow
 ```
 
 Every method returns a promise.
@@ -130,11 +130,11 @@ Only properties which are defined will be send to the BM.
       currencyCode: 'USD',
     },
     {
-      type: 'includedMileage'
+      type: 'includedMileage',
       amount: Infinity,  /** means "unlimited" **/
     },
     {
-      type: 'firstAdditionalDriver'
+      type: 'firstAdditionalDriver',
       amount: 2,
     },
     { 
@@ -144,7 +144,7 @@ Only properties which are defined will be send to the BM.
   ],
   extras: [
     {
-      type: 'additionalDriver'
+      type: 'additionalDriver',
       amount: 3,
       totalPrice: 210,
       currencyCode: 'USD',
@@ -156,7 +156,7 @@ Only properties which are defined will be send to the BM.
       option: 3,
     },
     {
-      type: 'oneWayFee'
+      type: 'oneWayFee',
       totalPrice: 0,
       currencyCode: 'USD',
       exchangeTotalPrice: 0,
@@ -296,5 +296,9 @@ Personal goal: Try to increase the test coverage to ~100%.
 
 #### ... the connector
 
-We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/external) of the BM.
-Just execute `npm run serve` and use the provided URL.
+We prepared a [test file](tests/manual/index.html). Just execute `npm run serve` and use the provided URL.
+
+#### ... your implementation
+
+You can open your implementation in the [Staging-System](https://fti360-bm-staging.firebaseapp.com/#/ibe/external) 
+of the BM and execute your tests.
