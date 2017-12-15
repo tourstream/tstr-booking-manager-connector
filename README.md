@@ -54,8 +54,8 @@ The connector provides several functions for the communication with the BM.
 ```
 bmConnector.connect();                    // establish the connection to the BM
 bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM
-bmConnector.directCheckout(dataObject);   // handover an item to the BM and triggers the transfer to the CRS
-bmConnector.exit();                       // destroy the connection to the BM
+bmConnector.directCheckout(dataObject);   // handover an item to the BM and mark it for direct transfer to the CRS
+bmConnector.done();                       // tell the BM to process the items and proceed with the BM workflow
 ```
 
 Every method returns a promise.
@@ -76,7 +76,7 @@ Currently the connector supports following types:
 - `'roundtrip'`
 
 Depending on the `type` the structure of the `dataObject` differs.
-
+Only properties which are defined will be send to the BM.
 
 #### example for type `'car'`
 
@@ -88,9 +88,9 @@ Depending on the `type` the structure of the `dataObject` differs.
     time: '09:15', 
     duration: 12960,  /** in minutes **/
     status: 'OK',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
-    conditionUrl: 'url://to-the.conditions',
+    editUrl: 'example://url-for.editting/?the=item',
+    availabilityUrl: 'example://url-to-do.an/availability/check',
+    conditionUrl: 'example://url-to-the.conditions',
     price: 506,
     currencyCode: 'EUR',
   },
@@ -98,78 +98,72 @@ Depending on the `type` the structure of the `dataObject` differs.
     code: 'E2',
     category: 'SMALL_CAR',
     name: 'Chevrolet Spark 2-4T AU',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'example://url-to-vehicle.img',
   },
   renter: {
-    name: 'Meeting Point',
-    logoUrl: 'url://to-renter.logo',
+    code: 'USA81',
+    name: 'Alamo',
+    logoUrl: 'example://url-to-renter.logo',
   },
   pickUp: {
+    type: 'station',
     locationCode: 'MIA3',  /** 4LC **/
-    station: {
-      code: 'USA81',
-      name: 'Meeting Point',
-      address: '780 Mcdonnell Road, San Francisco Airport',
-      phoneNumber: '(650) 616-2400',
-      latitude: '37.6213129',
-      longitude: '-122.3789554',
-    },
-    hotel: {
-      name: 'Best Hotel',
-      address: 'hotel street 1, 12345 hotel city',
-      phoneNumber: '+49 172 678 0832 09',
-    },
+    name: 'Alamo',
+    address: '4332 Collins Avenue, Miami South Beach',
+    phoneNumber: '(305) 532-8257',
+    latitude: '25.8149316',
+    longitude: '-80.1230047',
   },
   dropOff: {
-    locationCode: 'SFO',  /** 4LC **/
-    station: {
-      code: 'USA81',
-      name: 'Meeting Point',
-      address: '780 Mcdonnell Road, San Francisco Airport',
-      phoneNumber: '(650) 616-2400',
-      latitude: '37.6213129',
-      longitude: '-122.3789554',
-    },
-    hotel: {
-      name: 'Best Hotel',
-      address: 'hotel street 1, 12345 hotel city',
-      phoneNumber: '+49 172 678 0832 09',
-    },
+    type: 'hotel',
+    locationCode: 'SFOH',  /** 4LC **/
+    name: 'Best Hotel',
+    address: 'hotel street 1, 12345 hotel city',
+    phoneNumber: '+49 172 678 0832 09',
+    latitude: '37.6213129',
+    longitude: '-122.3789554',
   },
-  services: {
-    liability: {
+  services: [
+    {
+      type: 'liability',
       amount: 1000000,
-      currencyCode: 'EUR',
+      currencyCode: 'USD',
     },
-    includedMileage: {
+    {
+      type: 'includedMileage',
       amount: Infinity,  /** means "unlimited" **/
     },
-    firstAdditionalDriver: {
+    {
+      type: 'firstAdditionalDriver',
       amount: 2,
     },
-    feeST: {
-      amount: Infinity,
+    { 
+      type: 'feeST',
     },
     ...,
-  },
-  extras: {
-    additionalDriver: {
+  ],
+  extras: [
+    {
+      type: 'additionalDriver',
       amount: 3,
       totalPrice: 210,
       currencyCode: 'USD',
       exchangeTotalPrice: 189.11,
       exchangeCurrencyCode: 'EUR',
     },
-    oneWayFee: {
-      amount: 1,
-      totalPrice: 0,
-      currencyCode: 'EUR',
+    {
+      type: 'childCareSeat',
+      option: 3,
     },
-    childCareSeat3: {
-      amount: 1,
+    {
+      type: 'oneWayFee',
+      totalPrice: 0,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 0,
+      exchangeCurrencyCode: 'EUR',
     },
     ...,
-  }, 
+  ], 
 }
 ```
 
@@ -180,18 +174,18 @@ Depending on the `type` the structure of the `dataObject` differs.
 {
   type: BookingManagerConnector.DATA_TYPES.hotel,
   booking: {
-    from: '2017-09-20',
-    to: '2017-09-27',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
+    fromDate: '2017-09-20',
+    toDate: '2017-09-27',
+    editUrl: 'example://url-for.editting/?the=item',
+    availabilityUrl: 'example://url-to-do.an/availability/check',
     price: 208,
     currencyCode: 'EUR',
   },
   hotel: {
     destination: 'MUC',
-    class: 3,
+    category: 3,
     name: 'Hotel ibis Muenchen City Sued',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'example://url-to-hotel.img',
     address: 'Raintaler Str.47, 81539, Munich, DE',
     latitude: '48.139497',
     longitude: '11.563788',
@@ -199,14 +193,21 @@ Depending on the `type` the structure of the `dataObject` differs.
   room: {
     code: 'DZ',
     quantity: 2,
-    occupancy: 4,
+    occupancy: 3,
     mealCode: 'U',
   },
   travellers: [
     {
-      gender: 'male',  // 'male', 'female', 'child'
+      type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',
+      age: 32,
+    },
+    {
+      type: 'child',
+      age: 4,
+    },
+    {
+      type: 'infant',
     },
     ...
   ],
@@ -221,34 +222,50 @@ Depending on the `type` the structure of the `dataObject` differs.
   type: BookingManagerConnector.DATA_TYPES.roundTrip,
   booking: {
     id: 'E2784NQXTHEN',
-    from: '2017-12-05',
-    to: '2017-12-16',
-    editUrl: 'url://for.editting/?the=item',
-    availabilityUrl: 'url://to-do.an/availability/check',
+    fromDate: '2017-12-05',
+    toDate: '2017-12-16',
     price: 860,
     currencyCode: 'EUR',
   },
   trip: {
     destination: 'YYZ',
     alias: 'Die Küste Südkaliforniens (ab San Francisco)',
-    imageUrl: 'url://to-vehicle.img',
+    imageUrl: 'example://url-to-round-trip.img',
   },
   route: [
     {
       type: 'accommodation',
-      date: '2018-05-03',
+      fromDate: '2018-05-03',
+      toDate: '2018-05-05',
       location: 'Santa Maria',
+      hotel: 'Travelodge Santa Maria',
+      rooms: [
+        {
+          name: 'Double/Twin Room',
+          quantity: 2,
+        },
+        {
+          name: 'Princess Suite',
+        },
+        ...
+      ],
       latitude: '48.139497',
       longitude: '11.563788',
-      description: 'Travelodge Santa Maria',
     },
     ...
   ],
   travellers: [
     {
-      gender: 'male',  // 'male', 'female', 'child'
+      type: 'male',  // 'male', 'female', 'child', 'infant'
       name: 'john doe',
-      birthDate: '1983-11-08',
+      age: 32,
+    },
+    {
+      type: 'child',
+      age: 4,
+    },
+    {
+      type: 'infant',
     },
     ...
   ],
@@ -271,5 +288,9 @@ Personal goal: Try to increase the test coverage to ~100%.
 
 #### ... the connector
 
-We prepared a test file, which can be opened in the [Test-System](https://fti360-bm-testing.firebaseapp.com/#/ibe/external) of the BM.
-Just execute `npm run serve` and use the provided URL.
+We prepared a [test file](tests/manual/index.html). Just execute `npm run serve` and use the provided URL.
+
+#### ... your implementation
+
+You can open your implementation in the [Staging-System](https://fti360-bm-staging.firebaseapp.com/#/ibe/external) 
+of the BM and execute your tests.

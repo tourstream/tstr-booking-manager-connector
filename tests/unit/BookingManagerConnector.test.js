@@ -59,7 +59,7 @@ describe('BookingManagerConnector', () => {
 
         expect(adapter.addToBasket.bind(adapter)).toThrowError(message);
         expect(adapter.directCheckout.bind(adapter)).toThrowError(message);
-        expect(adapter.exit.bind(adapter)).toThrowError(message);
+        expect(adapter.done.bind(adapter)).toThrowError(message);
     });
 
     describe('is connected and', () => {
@@ -87,7 +87,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data);
+            adapter.addToBasket(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('addToBasket() should set data correct', (done) => {
@@ -107,7 +109,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data);
+            adapter.addToBasket(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('directCheckout() should set data correct', (done) => {
@@ -127,7 +131,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of car values should work correct', (done) => {
@@ -153,31 +159,27 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of hotel values should work correct', (done) => {
             let data = {
                 type: DATA_TYPES.hotel,
                 booking: {
-                    from: '20181108',
-                    to: '20181118',
+                    fromDate: '20181108',
+                    toDate: '20181118',
                 },
-                travellers: [
-                    { birthDate: '19831108' },
-                ],
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.hotel,
                 booking: {
-                    from: '2018-11-08',
-                    to: '2018-11-18',
+                    fromDate: '2018-11-08',
+                    toDate: '2018-11-18',
                 },
-                travellers: [
-                    { birthDate: '1983-11-08' },
-                ],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -185,21 +187,23 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of roundTrip values should work correct', (done) => {
             let data = {
                 type: DATA_TYPES.roundTrip,
                 booking: {
-                    from: '20181108',
-                    to: '20181118',
+                    fromDate: '20181108',
+                    toDate: '20181118',
                 },
                 route: [
-                    { date: '20181207' },
-                ],
-                travellers: [
-                    { birthDate: '19831108'},
+                    {
+                        fromDate: '20181207',
+                        toDate: '20181217',
+                    },
                 ],
             };
 
@@ -207,14 +211,14 @@ describe('BookingManagerConnector', () => {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.roundTrip,
                 booking: {
-                    from: '2018-11-08',
-                    to: '2018-11-18',
+                    fromDate: '2018-11-08',
+                    toDate: '2018-11-18',
                 },
                 route: [
-                    { date: '2018-12-07' },
-                ],
-                travellers: [
-                    { birthDate: '1983-11-08'},
+                    {
+                        fromDate: '2018-12-07',
+                        toDate: '2018-12-17',
+                    },
                 ],
             };
 
@@ -223,7 +227,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('should do no conversion if conversion result is wrong', (done) => {
@@ -249,7 +255,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('should do no conversion if use*Format is not defined', (done) => {
@@ -278,13 +286,19 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
-        it('exit() should destroy connection', () => {
-            adapter.exit();
+        it('done() should trigger done on BM API', (done) => {
+            bmApi.done.and.callFake(() => {
+                done();
+            });
 
-            expect(connection.destroy).toHaveBeenCalled();
+            adapter.done().catch(() => {
+                done.fail('unexpected result');
+            });
         });
     });
 });

@@ -6,6 +6,8 @@
     const actionButtons = document.getElementById('actions').getElementsByTagName('button');
     const formFieldTemplate = document.getElementById('form-field-template');
 
+    let connection;
+
     init();
 
     function init() {
@@ -18,7 +20,12 @@
         Array.from(actionButtons).forEach((button) => {
             button.onclick = (event) => {
                 if (button.type === 'submit') {
-                    sendData();
+                    if (button.name === 'send') {
+                        sendData();
+                    } else {
+                        done();
+                    }
+
                     return;
                 }
 
@@ -59,14 +66,14 @@
         let data = {};
 
         Object.keys(ibeForm).forEach((key) => {
-            if (!ibeForm[key].name) return;
+            if (!ibeForm[key].name || ibeForm[key].value === '') return;
 
             setValueToPropertyPath(data, ibeForm[key].name, ibeForm[key].value);
         });
 
         console.log('collected data', data);
 
-        Promise.resolve(bmConnector.connect()).then(() => {
+        getConnection().then(() => {
             let decision = window.prompt('Send [1] for a direct checkout else it will be added to the basket');
 
             if (decision === '1') {
@@ -76,6 +83,20 @@
 
             bmConnector.addToBasket(data).catch(console.log);
         }, console.log);
+    }
+
+    function done() {
+        getConnection().then(() => {
+            bmConnector.done().catch(console.log);
+        }, console.log);
+    }
+
+    function getConnection() {
+        if (!connection) {
+            connection = bmConnector.connect();
+        }
+
+        return connection;
     }
 
     function setValueToPropertyPath(object, path, value) {
