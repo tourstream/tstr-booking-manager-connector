@@ -66,9 +66,9 @@ class BookingManagerConnector {
     }
 
     done() {
-        this.getConnection().destroy();
-
-        return Promise.resolve();
+        return this.getConnection().promise.then(parent => {
+            return parent.done();
+        });
     }
 
     /**

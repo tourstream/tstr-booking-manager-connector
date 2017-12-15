@@ -59,7 +59,7 @@ describe('BookingManagerConnector', () => {
 
         expect(adapter.addToBasket.bind(adapter)).toThrowError(message);
         expect(adapter.directCheckout.bind(adapter)).toThrowError(message);
-        expect(adapter.exit.bind(adapter)).toThrowError(message);
+        expect(adapter.done.bind(adapter)).toThrowError(message);
     });
 
     describe('is connected and', () => {
@@ -87,7 +87,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data);
+            adapter.addToBasket(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('addToBasket() should set data correct', (done) => {
@@ -107,7 +109,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data);
+            adapter.addToBasket(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('directCheckout() should set data correct', (done) => {
@@ -127,7 +131,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of car values should work correct', (done) => {
@@ -153,7 +159,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of hotel values should work correct', (done) => {
@@ -179,7 +187,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('conversion of roundTrip values should work correct', (done) => {
@@ -217,7 +227,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('should do no conversion if conversion result is wrong', (done) => {
@@ -243,7 +255,9 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
         it('should do no conversion if use*Format is not defined', (done) => {
@@ -272,13 +286,19 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data);
+            adapter.directCheckout(data).catch(() => {
+                done.fail('unexpected result');
+            });
         });
 
-        it('done() should destroy connection', () => {
-            adapter.done();
+        it('done() should trigger done on BM API', (done) => {
+            bmApi.done.and.callFake(() => {
+                done();
+            });
 
-            expect(connection.destroy).toHaveBeenCalled();
+            adapter.done().catch(() => {
+                done.fail('unexpected result');
+            });
         });
     });
 });
