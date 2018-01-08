@@ -38,7 +38,7 @@
     function initFormFields() {
         let placeholderFields = document.querySelectorAll('[data-form-field]');
 
-        placeholderFields.forEach((placeholderField) => {
+        Array.from(placeholderFields).forEach((placeholderField) => {
             let formGroup = formFieldTemplate.cloneNode(true);
             let label = formGroup.childNodes[1];
             let input = formGroup.childNodes[3];
@@ -47,11 +47,27 @@
 
             label.innerHTML = placeholderField.dataset.label;
             input.name = placeholderField.dataset.name;
-            input.value = placeholderField.dataset.value || '';
+            input.value = placeholderField.dataset.value
+                || createDate(placeholderField.dataset.dynamicDate)
+                || '';
             input.title = placeholderField.dataset.title || '';
 
             placeholderField.parentNode.replaceChild(formGroup, placeholderField);
         });
+    }
+
+    function createDate(daysInFuture) {
+        if (!daysInFuture) {
+            return;
+        }
+
+        const date = new Date(+new Date + 1000 * 60 * 60 * 24 * daysInFuture);
+
+        return [
+            date.getFullYear(),
+            ('0' + (date.getMonth() + 1)).substr(-2),
+            ('0' + date.getDate()).substr(-2),
+        ].join('-');
     }
 
     function resetForm() {

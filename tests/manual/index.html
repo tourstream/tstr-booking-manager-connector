@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>IBE Simulator</title>
+        <title>BM Connector Test</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/styles.css">
@@ -13,7 +13,7 @@
 
     <body>
         <div class="container-fluid">
-            <h1>BM connector Test</h1>
+            <h1>BM Connector Test</h1>
 
             <div class="row">
                 <div class="col">
@@ -23,8 +23,11 @@
                         <button type="button" class="btn btn-outline-primary" value="car">car</button>
                         <button type="button" class="btn btn-outline-primary" value="hotel">hotel</button>
                         <button type="button" class="btn btn-outline-primary" value="roundTrip">round trip</button>
-                        <button name="send" class="btn btn-outline-warning mx-4">transfer to BM</button>
-                        <button name="done" class="btn btn-outline-warning">done</button>
+
+                        <span class="mx-4">
+                            <button name="send" class="btn btn-outline-warning">transfer to BM</button>
+                            <button name="done" class="btn btn-outline-warning">done</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -44,7 +47,7 @@
                     <div class="form-row">
                         <fieldset class="col my-1">
                             <legend>rental</legend>
-                            <div data-form-field data-label="date" data-name="rental.date" data-value="2017-12-08"></div>
+                            <div data-form-field data-label="date" data-name="rental.date" data-dynamic-date="14"></div>
                             <div data-form-field data-label="time" data-name="rental.time" data-value="09:40"></div>
                             <div data-form-field data-label="duration (in minutes)" data-name="rental.duration" data-title="4 days 40 minutes" data-value="5800"></div>
                             <div data-form-field data-label="status" data-name="rental.status" data-title="OK || RQ" data-value="OK"></div>
@@ -160,8 +163,8 @@
                     <div class="form-row">
                         <fieldset class="col my-1">
                             <legend>booking</legend>
-                            <div data-form-field data-label="from" data-name="booking.fromDate" data-value="2017-09-20"></div>
-                            <div data-form-field data-label="to" data-name="booking.toDate" data-value="2017-09-27"></div>
+                            <div data-form-field data-label="from" data-name="booking.fromDate" data-dynamic-date="14"></div>
+                            <div data-form-field data-label="to" data-name="booking.toDate" data-dynamic-date="21"></div>
                             <div data-form-field data-label="editUrl" data-name="booking.editUrl" data-title="how can i edit or search again for this product?"></div>
                             <div data-form-field data-label="availabilityUrl" data-name="booking.availabilityUrl" data-title="how can i check if this product is still available?"></div>
                             <div data-form-field data-label="price" data-name="booking.price" data-value="208"></div>
@@ -238,8 +241,8 @@
                         <fieldset class="col my-1">
                             <legend>booking</legend>
                             <div data-form-field data-label="id" data-name="booking.id" data-value="E2784NQXTHEN"></div>
-                            <div data-form-field data-label="from" data-name="booking.fromDate" data-value="2017-12-05"></div>
-                            <div data-form-field data-label="to" data-name="booking.toDate" data-value="2017-12-16"></div>
+                            <div data-form-field data-label="from" data-name="booking.fromDate" data-dynamic-date="14"></div>
+                            <div data-form-field data-label="to" data-name="booking.toDate" data-dynamic-date="21"></div>
                             <div data-form-field data-label="price" data-name="booking.price" data-value="860"></div>
                             <div data-form-field data-label="currencyCode" data-name="booking.currencyCode" data-value="EUR"></div>
                         </fieldset>
@@ -256,8 +259,8 @@
                         <fieldset class="col my-1">
                             <legend>route</legend>
                             <div data-form-field data-label="stop type" data-name="route.0.type" data-value="accommodation"></div>
-                            <div data-form-field data-label="stop from" data-name="route.0.fromDate" data-value="2018-05-03"></div>
-                            <div data-form-field data-label="stop to" data-name="route.0.toDate" data-value="2018-05-13"></div>
+                            <div data-form-field data-label="stop from" data-name="route.0.fromDate" data-dynamic-date="16"></div>
+                            <div data-form-field data-label="stop to" data-name="route.0.toDate" data-dynamic-date="19"></div>
                             <div data-form-field data-label="stop location" data-name="route.0.location" data-value="Santa Maria"></div>
                             <div data-form-field data-label="stop hotel" data-name="route.0.hotel" data-value="Travelodge Santa Maria"></div>
                             <div data-form-field data-label="stop latitude" data-name="route.0.latitude" data-value="48.139497"></div>
@@ -265,7 +268,7 @@
                         </fieldset>
 
                         <fieldset class="col my-1">
-                            <legend>&nbsp</legend>
+                            <legend>&nbsp;</legend>
                             <div data-form-field data-label="room 1 name" data-name="route.0.rooms.0.name" data-value="Double/Twin Room"></div>
                             <div data-form-field data-label="room 1 quantity" data-name="route.0.rooms.0.quantity" data-value="2"></div>
                             <div data-form-field data-label="room 2 name" data-name="route.0.rooms.1.name" data-value="Princess Suite"></div>
