@@ -53,8 +53,8 @@ The formats are according to [momentjs date format](https://momentjs.com/docs/#/
 The connector provides several functions for the communication with the BM.
 ```
 bmConnector.connect();                    // establish the connection to the BM
-bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM
-bmConnector.directCheckout(dataObject);   // handover an item to the BM and mark it for direct transfer to the CRS
+bmConnector.addToBasket(dataObject);      // add an item to the basket of the BM (the user/TA have to do the CRS transfer manually)
+bmConnector.directCheckout(dataObject);   // handover an item to the BM and mark it for "direct checkout" (the BM will do the CRS transfer automatically after "done" is executed)
 bmConnector.done();                       // tell the BM to process the items and proceed with the BM workflow
 ```
 
