@@ -45,7 +45,7 @@ You can check the default options with `BookingManagerConnector.DEFAULT_OPTIONS`
 }
 ```
 
-The formats are according to [momentjs date format](https://momentjs.com/docs/#/displaying/).
+The formats are according to [momentjs date format](https://momentjs.com/docs/#/parsing/string-format/).
 
 
 ## Interface
