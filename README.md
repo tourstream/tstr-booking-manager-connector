@@ -84,9 +84,6 @@ Only properties which are defined will be send to the BM.
 {
   type: BookingManagerConnector.DATA_TYPES.car,
   rental: {
-    date: '2017-12-28', 
-    time: '09:15', 
-    duration: 12960,  /** in minutes **/
     status: 'OK',
     editUrl: 'example://url-for.editting/?the=item',
     availabilityUrl: 'example://url-to-do.an/availability/check',
@@ -107,6 +104,8 @@ Only properties which are defined will be send to the BM.
   },
   pickUp: {
     type: 'station',
+    date: '2017-12-28', 
+    time: '09:15', 
     locationCode: 'MIA3',  /** 4LC **/
     name: 'Alamo',
     address: '4332 Collins Avenue, Miami South Beach',
@@ -116,6 +115,8 @@ Only properties which are defined will be send to the BM.
   },
   dropOff: {
     type: 'hotel',
+    date: '2018-01-04', 
+    time: '13:40', 
     locationCode: 'SFOH',  /** 4LC **/
     name: 'Best Hotel',
     address: 'hotel street 1, 12345 hotel city',

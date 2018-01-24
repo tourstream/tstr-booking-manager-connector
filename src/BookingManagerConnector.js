@@ -21,13 +21,13 @@ const CONFIG = {
 };
 
 const TYPE_2_DATE_PROPERTIES = {
-    [DATA_TYPES.car]: ['rental.date'],
+    [DATA_TYPES.car]: ['pickUp.date', 'dropOff.date'],
     [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate'],
     [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {
-    [DATA_TYPES.car]: ['rental.time'],
+    [DATA_TYPES.car]: ['pickUp.time', 'dropOff.time'],
 };
 
 class BookingManagerConnector {
@@ -132,6 +132,10 @@ class BookingManagerConnector {
     convertValueByPropertyPath(object, path, callback) {
         let parts = path.split('.');
         let property = parts.shift();
+
+        if (object === void 0) {
+            return;
+        }
 
         if (path === property) {
             object[property] = callback(object[property]);

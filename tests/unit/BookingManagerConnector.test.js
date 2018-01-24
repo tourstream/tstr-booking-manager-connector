@@ -139,18 +139,26 @@ describe('BookingManagerConnector', () => {
         it('conversion of car values should work correct', (done) => {
             let data = {
                 type: DATA_TYPES.car,
-                rental: {
+                pickUp: {
                     date: '20181108',
                     time: '0920',
+                },
+                dropOff: {
+                    date: '20181110',
+                    time: '0930',
                 },
             };
 
             let expected = {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.car,
-                rental: {
+                pickUp: {
                     date: '2018-11-08',
                     time: '09:20',
+                },
+                dropOff: {
+                    date: '2018-11-10',
+                    time: '09:30',
                 },
             };
 
@@ -235,7 +243,7 @@ describe('BookingManagerConnector', () => {
         it('should do no conversion if conversion result is wrong', (done) => {
             let data = {
                 type: DATA_TYPES.car,
-                rental: {
+                pickUp: {
                     date: '08112018',
                     time: '920',
                 },
@@ -244,7 +252,7 @@ describe('BookingManagerConnector', () => {
             let expected = {
                 _: { version: jasmine.anything() },
                 type: DATA_TYPES.car,
-                rental: {
+                pickUp: {
                     date: '08112018',
                     time: '920',
                 },
@@ -255,7 +263,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.message);
                 done.fail('unexpected result');
             });
         });
