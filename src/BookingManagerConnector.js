@@ -133,6 +133,10 @@ class BookingManagerConnector {
         let parts = path.split('.');
         let property = parts.shift();
 
+        if (object === void 0) {
+            return;
+        }
+
         if (path === property) {
             object[property] = callback(object[property]);
 
