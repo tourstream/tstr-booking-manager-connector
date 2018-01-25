@@ -1,4 +1,4 @@
-(() => {
+(function() {
     "use strict";
 
     const bmConnector = new window.BookingManagerConnector.default({debug: true});
@@ -17,8 +17,8 @@
     }
 
     function initActionButtons() {
-        Array.from(actionButtons).forEach((button) => {
-            button.onclick = (event) => {
+        Array.from(actionButtons).forEach(function(button) {
+            button.onclick = function(event) {
                 if (button.type === 'submit') {
                     if (button.name === 'send') {
                         sendData();
@@ -38,7 +38,7 @@
     function initFormFields() {
         let placeholderFields = document.querySelectorAll('[data-form-field]');
 
-        Array.from(placeholderFields).forEach((placeholderField) => {
+        Array.from(placeholderFields).forEach(function(placeholderField) {
             let formGroup = formFieldTemplate.cloneNode(true);
             let label = formGroup.childNodes[1];
             let input = formGroup.childNodes[3];
@@ -81,7 +81,7 @@
     function sendData() {
         let data = {};
 
-        Object.keys(ibeForm).forEach((key) => {
+        Object.keys(ibeForm).forEach(function(key) {
             if (!ibeForm[key].name || ibeForm[key].value === '') return;
 
             setValueToPropertyPath(data, ibeForm[key].name, ibeForm[key].value);
@@ -89,7 +89,7 @@
 
         console.log('collected data', data);
 
-        getConnection().then(() => {
+        getConnection().then(function() {
             let decision = window.prompt('Send [1] for a direct checkout else it will be added to the basket');
 
             if (decision === '1') {
@@ -102,7 +102,7 @@
     }
 
     function done() {
-        getConnection().then(() => {
+        getConnection().then(function() {
             bmConnector.done().catch(console.log);
         }, console.log);
     }
