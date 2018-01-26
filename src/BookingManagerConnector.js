@@ -54,9 +54,9 @@ class BookingManagerConnector {
         });
     }
 
-    directCheckout(dataObject) {
+    directCheckout(data) {
         return this.getConnection().promise.then(parent => {
-            let transferObject = this.convertDataToTransferObject(dataObject);
+            let transferObject = this.convertDataToTransferObject(data);
 
             this.logger.log('TRANSFER DATA');
             this.logger.log(transferObject);
@@ -102,6 +102,9 @@ class BookingManagerConnector {
      * @returns {*}
      */
     convertDataToTransferObject(data) {
+        this.logger.log('INPUT DATA');
+        this.logger.log(data);
+
         if (this.options.useDateFormat !== CONFIG.dateFormat) {
             this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES[data.type]);
         }
