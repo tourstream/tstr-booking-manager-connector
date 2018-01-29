@@ -108,7 +108,7 @@
         let property = parts.shift();
 
         if (path === property) {
-            object[property] = value === 'Infinity' ? Infinity : value;
+            object[property] = value;
 
             return;
         }
