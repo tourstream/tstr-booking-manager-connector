@@ -20,11 +20,13 @@
         Array.from(actionButtons).forEach(function(button) {
             button.onclick = function(event) {
                 if (button.type === 'submit') {
-                    if (button.name === 'send') {
-                        sendData();
-                    } else {
-                        done();
-                    }
+                    getConnection().then(function() {
+                        switch(button.name) {
+                            case 'transfer-to-basket': return bmConnector.addToBasket(collectTransferData()).catch(console.log);
+                            case 'transfer-to-crs': return bmConnector.directCheckout(collectTransferData()).catch(console.log);
+                            case 'done': return bmConnector.done().catch(console.log);
+                        }
+                    });
 
                     return;
                 }
@@ -78,7 +80,7 @@
         ibeForm.appendChild(document.getElementById(type + '-form-fields').cloneNode(true));
     }
 
-    function sendData() {
+    function collectTransferData() {
         let data = {};
 
         Object.keys(ibeForm).forEach(function(key) {
@@ -87,24 +89,10 @@
             setValueToPropertyPath(data, ibeForm[key].name, ibeForm[key].value);
         });
 
-        console.log('collected data', data);
+        console.log('collected data: ');
+        console.log(data);
 
-        getConnection().then(function() {
-            let decision = window.prompt('Send [1] for a direct checkout else it will be added to the basket');
-
-            if (decision === '1') {
-                bmConnector.directCheckout(data).catch(console.log);
-                return;
-            }
-
-            bmConnector.addToBasket(data).catch(console.log);
-        }, console.log);
-    }
-
-    function done() {
-        getConnection().then(function() {
-            bmConnector.done().catch(console.log);
-        }, console.log);
+        return data;
     }
 
     function getConnection() {
