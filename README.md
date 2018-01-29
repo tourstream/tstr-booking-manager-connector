@@ -132,7 +132,7 @@ Only properties which are defined will be send to the BM.
     },
     {
       type: 'includedMileage',
-      amount: Infinity,  /** means "unlimited" **/
+      flag: <FLAG_TYPE>,
     },
     {
       type: 'firstAdditionalDriver',
@@ -168,6 +168,7 @@ Only properties which are defined will be send to the BM.
 }
 ```
 
+_FLAG_TYPE can be something like: 'unlimited', 'statutory', ..._
 
 #### example for type `'hotel'`
 
