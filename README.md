@@ -184,7 +184,7 @@ _FLAG_TYPE can be something like: 'unlimited', 'statutory', ..._
     currencyCode: 'EUR',
   },
   hotel: {
-    destination: 'MUC',
+    externalCode: 'MUC20S',
     category: 3,
     name: 'Hotel ibis Muenchen City Sued',
     imageUrl: 'example://url-to-hotel.img',
