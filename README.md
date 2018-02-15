@@ -294,12 +294,12 @@ Only properties which are defined will be send to the BM.
     longitude: '-80.1230047',
   },
   dropOff: {
-    type: 'hotel',
-    date: '2018-01-04', 
+    type: 'station',
+    date: '2017-12-28', 
     locationCode: 'LIS2',  /** 4LC **/
-    name: 'Best Hotel',
-    address: 'hotel street 1, 12345 hotel city',
-    phoneNumber: '+49 172 678 0832 09',
+    name: 'Avis',
+    address: '4332 Collins Avenue, Miami South Beach',
+    phoneNumber: '(305) 532-8257',
     latitude: '37.6213129',
     longitude: '-122.3789554',
   },

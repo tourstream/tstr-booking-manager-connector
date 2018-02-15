@@ -23,6 +23,7 @@
                         <button type="button" class="btn btn-outline-primary" value="car">car</button>
                         <button type="button" class="btn btn-outline-primary" value="hotel">hotel</button>
                         <button type="button" class="btn btn-outline-primary" value="roundTrip">round trip</button>
+                        <button type="button" class="btn btn-outline-primary" value="camper">camper</button>
 
                         <span class="mx-4">
                             <button name="transfer-to-basket" class="btn btn-outline-warning">transfer to BM basket</button>
@@ -292,6 +293,117 @@
                             <div data-form-field data-label="type" data-name="travellers.2.type" data-value="infant"></div>
                             <div data-form-field data-label="name" data-name="travellers.2.name"></div>
                             <div data-form-field data-label="age" data-name="travellers.2.age"></div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div id="camper-form-fields">
+                    <input type="hidden" name="type" value="camper"/>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>rental</legend>
+                            <div data-form-field data-label="status" data-name="rental.status" data-title="OK || RQ" data-value="OK"></div>
+                            <div data-form-field data-label="editUrl" data-name="rental.editUrl" data-title="how can i edit or search again for this product?"></div>
+                            <div data-form-field data-label="availabilityUrl" data-name="rental.availabilityUrl" data-title="how can i check if this product is still available?"></div>
+                            <div data-form-field data-label="conditionUrl" data-name="rental.conditionUrl" data-title="from where can i get the conditions of this product?"></div>
+                            <div data-form-field data-label="price" data-name="rental.price" data-value="506"></div>
+                            <div data-form-field data-label="currencyCode" data-name="rental.currencyCode" data-value="EUR"></div>
+                            <div data-form-field data-label="milesIncludedPerDay" data-name="rental.milesIncludedPerDay" data-value="900"></div>
+                            <div data-form-field data-label="milesPackagesIncluded" data-name="rental.milesPackagesIncluded" data-value="5"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>vehicle</legend>
+                            <div data-form-field data-label="code" data-name="vehicle.code" data-value="FS"></div>
+                            <div data-form-field data-label="category" data-name="vehicle.category" data-value="VAN"></div>
+                            <div data-form-field data-label="name" data-name="vehicle.name" data-value="Deluxe Campervan"></div>
+                            <div data-form-field data-label="imageUrl" data-name="vehicle.imageUrl" data-value="https://www.groovylife.com/assets/placeholders/camper_placeholder-1475e5c7d83636b23002e12f64d2a7479e0718eb4c11e0d3821e60220d3cb5c1.svg"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>renter</legend>
+                            <div data-form-field data-label="code" data-name="renter.code" data-value="USA81"></div>
+                            <div data-form-field data-label="name" data-name="renter.name" data-value="Meeting Point"></div>
+                            <div data-form-field data-label="logoUrl" data-name="renter.logoUrl" data-value="https://drivefti.fti.de/img/logos/AVIS_.gif"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>pickUp</legend>
+                            <div data-form-field data-label="date" data-name="pickUp.date" data-dynamic-date="14"></div>
+                            <div data-form-field data-label="type" data-name="pickUp.type" data-value="station"></div>
+                            <div data-form-field data-label="code" data-name="pickUp.locationCode" data-value="LIS1"></div>
+                            <div data-form-field data-label="name" data-name="pickUp.name" data-value="Avis"></div>
+                            <div data-form-field data-label="address" data-name="pickUp.address" data-value="4332 Collins Avenue, Miami South Beach"></div>
+                            <div data-form-field data-label="phone" data-name="pickUp.phoneNumber" data-value="(305) 532-8257"></div>
+                            <div data-form-field data-label="latitude" data-name="pickUp.latitude" data-value="25.8149316"></div>
+                            <div data-form-field data-label="longitude" data-name="pickUp.longitude" data-value="-80.1230047"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>dropOff</legend>
+                            <div data-form-field data-label="date" data-name="pickUp.date" data-dynamic-date="20"></div>
+                            <div data-form-field data-label="type" data-name="pickUp.type" data-value="station"></div>
+                            <div data-form-field data-label="code" data-name="pickUp.locationCode" data-value="LIS2"></div>
+                            <div data-form-field data-label="name" data-name="pickUp.name" data-value="Avis"></div>
+                            <div data-form-field data-label="address" data-name="pickUp.address" data-value="4332 Collins Avenue, Miami South Beach"></div>
+                            <div data-form-field data-label="phone" data-name="pickUp.phoneNumber" data-value="(305) 532-8257"></div>
+                            <div data-form-field data-label="latitude" data-name="dropOff.latitude" data-value="37.6213129"></div>
+                            <div data-form-field data-label="longitude" data-name="dropOff.longitude" data-value="-122.3789554"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>services</legend>
+                            <div data-form-field data-label="service" data-name="services.0" data-value="service 1"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="service" data-name="services.1" data-value="service 2"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="service" data-name="services.2"></div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-row">
+                        <fieldset class="col my-1">
+                            <legend>extras</legend>
+                            <div data-form-field data-label="type" data-name="extras.0.type" data-value="additionalDriver"></div>
+                            <div data-form-field data-label="amount" data-name="extras.0.amount" data-value="3"></div>
+                            <div data-form-field data-label="option" data-name="extras.0.option"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.0.totalPrice" data-value="210"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.0.currencyCode" data-value="USD"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.0.exchangeTotalPrice" data-value="189.11"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.0.exchangeCurrencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="extras.1.type" data-value="oneWayFee"></div>
+                            <div data-form-field data-label="amount" data-name="extras.1.amount"></div>
+                            <div data-form-field data-label="option" data-name="extras.1.option"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.1.totalPrice" data-value="0"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.1.currencyCode" data-value="USD"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.1.exchangeTotalPrice" data-value="0"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.1.exchangeCurrencyCode" data-value="EUR"></div>
+                        </fieldset>
+
+                        <fieldset class="col my-1">
+                            <legend>&nbsp;</legend>
+                            <div data-form-field data-label="type" data-name="extras.2.type" data-value="childCareSeat"></div>
+                            <div data-form-field data-label="amount" data-name="extras.2.amount"></div>
+                            <div data-form-field data-label="option" data-name="extras.2.option" data-value="3"></div>
+                            <div data-form-field data-label="totalPrice" data-name="extras.2.totalPrice"></div>
+                            <div data-form-field data-label="currencyCode" data-name="extras.2.currencyCode"></div>
+                            <div data-form-field data-label="exchangeTotalPrice" data-name="extras.2.exchangeTotalPrice"></div>
+                            <div data-form-field data-label="exchangeCurrencyCode" data-name="extras.2.exchangeCurrencyCode"></div>
                         </fieldset>
                     </div>
                 </div>
