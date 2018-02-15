@@ -74,6 +74,7 @@ Currently the connector supports following types:
 - `'car'`
 - `'hotel'`
 - `'roundtrip'`
+- `'camper'`
 
 Depending on the `type` the structure of the `dataObject` differs.
 Only properties which are defined will be send to the BM.
@@ -85,7 +86,7 @@ Only properties which are defined will be send to the BM.
   type: BookingManagerConnector.DATA_TYPES.car,
   rental: {
     status: 'OK',
-    editUrl: 'example://url-for.editting/?the=item',
+    editUrl: 'example://url-for.editing/?the=item',
     availabilityUrl: 'example://url-to-do.an/availability/check',
     conditionUrl: 'example://url-to-the.conditions',
     price: 506,
@@ -160,7 +161,7 @@ Only properties which are defined will be send to the BM.
   booking: {
     fromDate: '2017-09-20',
     toDate: '2017-09-27',
-    editUrl: 'example://url-for.editting/?the=item',
+    editUrl: 'example://url-for.editing/?the=item',
     availabilityUrl: 'example://url-to-do.an/availability/check',
     price: 208,
     currencyCode: 'EUR',
@@ -253,6 +254,80 @@ Only properties which are defined will be send to the BM.
     },
     ...
   ],
+}
+```
+
+#### example for type `'camper'`
+
+```
+{
+  type: BookingManagerConnector.DATA_TYPES.camper,
+  rental: {
+    status: 'OK',
+    editUrl: 'example://url-for.editing/?the=item',
+    availabilityUrl: 'example://url-to-do.an/availability/check',
+    conditionUrl: 'example://url-to-the.conditions',
+    price: 506,
+    currencyCode: 'EUR',
+    milesIncludedPerDay: 300,
+    milesPackagesIncluded: 5,
+  },
+  vehicle: {
+    code: 'FS',
+    category: 'VAN',
+    name: 'Deluxe Campervan',
+    imageUrl: 'example://url-to-vehicle.img',
+  },
+  renter: {
+    code: 'PRT02',
+    name: 'Avis',
+    logoUrl: 'example://url-to-renter.logo',
+  },
+  pickUp: {
+    type: 'station',
+    date: '2017-12-28', 
+    locationCode: 'LIS1',  /** 4LC **/
+    name: 'Avis',
+    address: '4332 Collins Avenue, Miami South Beach',
+    phoneNumber: '(305) 532-8257',
+    latitude: '25.8149316',
+    longitude: '-80.1230047',
+  },
+  dropOff: {
+    type: 'hotel',
+    date: '2018-01-04', 
+    locationCode: 'LIS2',  /** 4LC **/
+    name: 'Best Hotel',
+    address: 'hotel street 1, 12345 hotel city',
+    phoneNumber: '+49 172 678 0832 09',
+    latitude: '37.6213129',
+    longitude: '-122.3789554',
+  },
+  services: [
+    '...',
+  ],
+  extras: [
+    {
+      type: 'additionalDriver',
+      amount: 3,
+      totalPrice: 210,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 189.11,
+      exchangeCurrencyCode: 'EUR',
+    },
+    {
+      type: 'childCareSeat',
+      option: 3,
+    },
+    {
+      type: 'oneWayFee',
+      totalPrice: 0,
+      currencyCode: 'USD',
+      exchangeTotalPrice: 0,
+      exchangeCurrencyCode: 'EUR',
+    },
+    ...,
+  ], 
 }
 ```
 
