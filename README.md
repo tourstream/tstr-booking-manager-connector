@@ -125,23 +125,7 @@ Only properties which are defined will be send to the BM.
     longitude: '-122.3789554',
   },
   services: [
-    {
-      type: 'liability',
-      amount: 1000000,
-      currencyCode: 'USD',
-    },
-    {
-      type: 'includedMileage',
-      flag: <FLAG_TYPE>,
-    },
-    {
-      type: 'firstAdditionalDriver',
-      amount: 2,
-    },
-    { 
-      type: 'feeST',
-    },
-    ...,
+    '...',
   ],
   extras: [
     {
@@ -167,8 +151,6 @@ Only properties which are defined will be send to the BM.
   ], 
 }
 ```
-
-_FLAG_TYPE can be something like: 'unlimited', 'statutory', ..._
 
 #### example for type `'hotel'`
 
