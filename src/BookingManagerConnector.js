@@ -7,6 +7,7 @@ const DATA_TYPES = {
     car: 'car',
     hotel: 'hotel',
     roundTrip: 'roundtrip',
+    camper: 'camper',
 };
 
 const DEFAULT_OPTIONS = {
@@ -24,6 +25,7 @@ const TYPE_2_DATE_PROPERTIES = {
     [DATA_TYPES.car]: ['pickUp.date', 'dropOff.date'],
     [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate'],
     [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate'],
+    [DATA_TYPES.camper]: ['pickUp.date', 'dropOff.date'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {

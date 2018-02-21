@@ -30,6 +30,7 @@ describe('BookingManagerConnector', () => {
             car: 'car',
             hotel: 'hotel',
             roundTrip: 'roundtrip',
+            camper: 'camper',
         });
     });
 
