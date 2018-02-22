@@ -34,7 +34,7 @@
   "dependencies": {
     "es6-shim": "^0.35.3",
     "moment": "^2.19.2",
-    "penpal": "^3.0.1"
+    "penpal": "^3.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
