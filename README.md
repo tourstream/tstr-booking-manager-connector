@@ -126,6 +126,7 @@ Only properties which are defined will be send to the BM.
     longitude: '-122.3789554',
   },
   services: [
+    'included service',
     '...',
   ],
   extras: [
@@ -304,11 +305,13 @@ Only properties which are defined will be send to the BM.
     longitude: '-122.3789554',
   },
   services: [
+    'included service',
     '...',
   ],
   extras: [
     {
-      type: 'additionalDriver',
+      name: 'Extra Name',
+      code: 'ECX0001',
       amount: 3,
       totalPrice: 210,
       currencyCode: 'USD',
@@ -316,15 +319,9 @@ Only properties which are defined will be send to the BM.
       exchangeCurrencyCode: 'EUR',
     },
     {
-      type: 'childCareSeat',
-      option: 3,
-    },
-    {
-      type: 'oneWayFee',
-      totalPrice: 0,
-      currencyCode: 'USD',
-      exchangeTotalPrice: 0,
-      exchangeCurrencyCode: 'EUR',
+      name: 'Early Bird Special',
+      code: 'USA740',
+      amount: 1,
     },
     ...,
   ], 
