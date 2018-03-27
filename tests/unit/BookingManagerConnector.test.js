@@ -88,7 +88,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data).catch(() => {
+            adapter.addToBasket(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -110,7 +111,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.addToBasket(data).catch(() => {
+            adapter.addToBasket(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -132,7 +134,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -168,7 +171,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -196,7 +200,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -236,7 +241,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -265,7 +271,7 @@ describe('BookingManagerConnector', () => {
             });
 
             adapter.directCheckout(data).catch((error) => {
-                console.log(error.message);
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -296,7 +302,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.directCheckout(data).catch(() => {
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });
@@ -306,7 +313,8 @@ describe('BookingManagerConnector', () => {
                 done();
             });
 
-            adapter.done().catch(() => {
+            adapter.done().catch((error) => {
+                console.log(error.toString());
                 done.fail('unexpected result');
             });
         });

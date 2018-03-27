@@ -76,8 +76,8 @@ Currently the connector supports following types:
 - `'roundtrip'`
 - `'camper'`
 
-Depending on the `type` the structure of the `dataObject` differs.
-Only properties which are defined will be send to the BM.
+Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
+
 
 #### example for type `'car'`
 
@@ -107,7 +107,7 @@ Only properties which are defined will be send to the BM.
     type: 'station',
     date: '2017-12-28', 
     time: '09:15', 
-    locationCode: 'MIA3',  /** 4LC **/
+    locationCode: 'MIA3',
     name: 'Alamo',
     address: '4332 Collins Avenue, Miami South Beach',
     phoneNumber: '(305) 532-8257',
@@ -118,7 +118,7 @@ Only properties which are defined will be send to the BM.
     type: 'hotel',
     date: '2018-01-04', 
     time: '13:40', 
-    locationCode: 'SFOH',  /** 4LC **/
+    locationCode: 'SFOH',
     name: 'Best Hotel',
     address: 'hotel street 1, 12345 hotel city',
     phoneNumber: '+49 172 678 0832 09',
@@ -184,7 +184,7 @@ Only properties which are defined will be send to the BM.
   },
   travellers: [
     {
-      type: 'male',  // 'male', 'female', 'child', 'infant'
+      type: 'male',
       name: 'john doe',
       age: 32,
     },
@@ -197,11 +197,11 @@ Only properties which are defined will be send to the BM.
     },
     ...
   ],
-  services: ['<extraName>', 'parking', 'spa_fitness', ...],
+  services: ['parking', 'spa_fitness', ...],
 }
 ```
 
-#### example for type `'roundTrip'`
+#### example for type `'roundtrip'`
 
 ```
 {
@@ -242,7 +242,7 @@ Only properties which are defined will be send to the BM.
   ],
   travellers: [
     {
-      type: 'male',  // 'male', 'female', 'child', 'infant'
+      type: 'male',
       name: 'john doe',
       age: 32,
     },
@@ -287,7 +287,7 @@ Only properties which are defined will be send to the BM.
   pickUp: {
     type: 'station',
     date: '2017-12-28', 
-    locationCode: 'LIS1',  /** 4LC **/
+    locationCode: 'LIS1',
     name: 'Avis',
     address: '4332 Collins Avenue, Miami South Beach',
     phoneNumber: '(305) 532-8257',
@@ -297,7 +297,7 @@ Only properties which are defined will be send to the BM.
   dropOff: {
     type: 'station',
     date: '2017-12-28', 
-    locationCode: 'LIS2',  /** 4LC **/
+    locationCode: 'LIS2',
     name: 'Avis',
     address: '4332 Collins Avenue, Miami South Beach',
     phoneNumber: '(305) 532-8257',
