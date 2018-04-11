@@ -83,7 +83,8 @@ declare namespace bookingManagerConnector {
     }
     export interface Traveller {
         type: TravellerType;
-        name: string;
+        firstName: string;
+        lastName: string;
         age: number | string;
     }
     export interface CarRental {
