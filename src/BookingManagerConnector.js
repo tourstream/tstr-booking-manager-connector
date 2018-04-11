@@ -30,6 +30,7 @@ const TYPE_2_DATE_PROPERTIES = {
 
 const TYPE_2_TIME_PROPERTIES = {
     [DATA_TYPES.car]: ['pickUp.time', 'dropOff.time'],
+    [DATA_TYPES.camper]: ['pickUp.time', 'dropOff.time'],
 };
 
 class BookingManagerConnector {

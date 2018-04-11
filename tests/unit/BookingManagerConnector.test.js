@@ -247,6 +247,43 @@ describe('BookingManagerConnector', () => {
             });
         });
 
+        it('conversion of camper values should work correct', (done) => {
+            let data = {
+                type: DATA_TYPES.camper,
+                pickUp: {
+                    date: '20181108',
+                    time: '0920',
+                },
+                dropOff: {
+                    date: '20181110',
+                    time: '0930',
+                },
+            };
+
+            let expected = {
+                _: { version: jasmine.anything() },
+                type: DATA_TYPES.camper,
+                pickUp: {
+                    date: '2018-11-08',
+                    time: '09:20',
+                },
+                dropOff: {
+                    date: '2018-11-10',
+                    time: '09:30',
+                },
+            };
+
+            bmApi.directCheckout.and.callFake((data) => {
+                expect(data).toEqual(expected);
+                done();
+            });
+
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
+                done.fail('unexpected result');
+            });
+        });
+
         it('should do no conversion if conversion result is wrong', (done) => {
             let data = {
                 type: DATA_TYPES.car,

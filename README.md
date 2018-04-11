@@ -293,6 +293,7 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   pickUp: {
     type: 'station',
     date: '2017-12-28', 
+    time: '09:15', 
     locationCode: 'LIS1',
     name: 'Avis',
     address: '4332 Collins Avenue, Miami South Beach',
@@ -331,6 +332,21 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
     },
     ...,
   ], 
+  travellers: [
+    {
+      type: 'male',
+      name: 'john doe',
+      age: 32,
+    },
+    {
+      type: 'child',
+      age: 4,
+    },
+    {
+      type: 'infant',
+    },
+    ...
+  ],
 }
 ```
 
