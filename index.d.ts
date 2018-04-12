@@ -53,6 +53,14 @@ declare namespace bookingManagerConnector {
         SpaFitness = "spa_fitness",
         Connection = "connection",
     }
+    export enum CarServiceType {
+        ComprehensiveCoverAndRetention = 'comprehensiveCoverAndRetention',
+        TheftProtectionAndExcess = 'theftProtectionAndExcess',
+        Liability = 'liability',
+        FeeST = 'feeST',
+        TankFull = 'tankFull',
+        IncludedMileage = 'includedMileage',
+    }
     export enum TravellerType {
         Male = "male",
         Female = "female",
@@ -90,7 +98,7 @@ declare namespace bookingManagerConnector {
     export interface CarRental {
         status: CarRentalStatus | string;
         editUrl: string;
-        availabilityUrl: string;
+        availabilityUrl?: string;
         conditionUrl: string;
         price: number | number;
         currencyCode: string;
@@ -109,21 +117,22 @@ declare namespace bookingManagerConnector {
     export interface VehicleLocation {
         type: CarLocationType;
         date: string;
-        time: string;
+        time?: string;
         locationCode: string;
         name: string;
         address: string;
-        phoneNumber: string;
+        phoneNumber?: string;
         latitude: number | string;
         longitude: number | string;
     }
     export interface CarExtra {
         type: CarExtraType | string;
-        amount: number | string;
-        totalPrice: number | string;
-        currencyCode: string;
-        exchangeTotalPrice: number | string;
-        exchangeCurrencyCode: string;
+        option?: string,
+        amount?: number | string;
+        totalPrice?: number | string;
+        currencyCode?: string;
+        exchangeTotalPrice?: number | string;
+        exchangeCurrencyCode?: string;
     }
     export interface CarData extends TransferData {
         type: ServiceType.Car;
@@ -132,7 +141,7 @@ declare namespace bookingManagerConnector {
         renter: CarRenter;
         pickUp: VehicleLocation;
         dropOff: VehicleLocation;
-        services: Array<string>;
+        services: Array<string> | Array<any>;
         extras: Array<CarExtra>;
     }
     export interface HotelBooking {
@@ -145,7 +154,7 @@ declare namespace bookingManagerConnector {
     }
     export interface HotelHotel {
         externalCode: string;
-        category: number | string;
+        category: number;
         name: string;
         imageUrl: string;
         address: string;
@@ -154,8 +163,8 @@ declare namespace bookingManagerConnector {
     }
     export interface HotelRoom {
         code: HotelRoomCode | string;
-        quantity: number | string;
-        occupancy: number | string;
+        quantity: number;
+        occupancy: number;
         mealCode: HotelMealCode | string;
     }
     export interface HotelData extends TransferData {
@@ -188,6 +197,7 @@ declare namespace bookingManagerConnector {
         toDate: string;
         location: string;
         hotel: string;
+        description?: string
         rooms: Array<RoundTripRouteRoom>;
         latitude: number | string;
         longitude: number | string;
@@ -199,11 +209,12 @@ declare namespace bookingManagerConnector {
         route: Array<RoundTripRoute>;
         travellers: Array<Traveller>;
     }
+
     export interface CamperRental {
         status: CamperRentalStatus | string;
         editUrl: string;
-        availabilityUrl: string;
-        conditionUrl: string;
+        availabilityUrl?: string;
+        conditionUrl?: string;
         price: number | string;
         currencyCode: string;
         milesIncludedPerDay: number | string;
@@ -223,11 +234,11 @@ declare namespace bookingManagerConnector {
     export interface CamperExtra {
         name: string;
         code: string;
-        amount: number | string | CamperMilesAmount.Unlimited;
+        amount?: number | string | CamperMilesAmount.Unlimited;
         totalPrice: number | string;
-        currencyCode: string;
-        exchangeTotalPrice: number | string;
-        exchangeCurrencyCode: string;
+        currencyCode?: string;
+        exchangeTotalPrice?: number | string;
+        exchangeCurrencyCode?: string;
     }
     export interface CamperData extends TransferData {
         type: ServiceType.Camper;
