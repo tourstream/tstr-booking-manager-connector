@@ -141,7 +141,7 @@ declare namespace bookingManagerConnector {
         renter: CarRenter;
         pickUp: VehicleLocation;
         dropOff: VehicleLocation;
-        services: Array<string> | Array<any>;
+        services: Array<string>;
         extras: Array<CarExtra>;
     }
     export interface HotelBooking {
@@ -191,22 +191,25 @@ declare namespace bookingManagerConnector {
         name: string;
         quantity: number | string;
     }
-    export interface RoundTripRoute {
-        type: RoundTripRouteType | string;
+    export interface RoundTripRouteAccomodation {
+        type: RoundTripRouteType.Accommodation | string;
         fromDate: string;
         toDate: string;
         location: string;
         hotel: string;
-        description?: string
         rooms: Array<RoundTripRouteRoom>;
         latitude: number | string;
         longitude: number | string;
+    }
+    export interface RoundTripRouteTransfer {
+        type: RoundTripRouteType.Transfer | string;
+        description: string
     }
     export interface RoundTripData extends TransferData {
         type: ServiceType.RoundTrip;
         booking: RoundTripBooking;
         trip: RoundTripTrip;
-        route: Array<RoundTripRoute>;
+        route: Array<RoundTripRouteTransfer | RoundTripRouteAccomodation>;
         travellers: Array<Traveller>;
     }
 
