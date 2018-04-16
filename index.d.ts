@@ -1,15 +1,15 @@
 declare namespace bookingManagerConnector {
-    export enum ServiceType {
+    export const enum ServiceType {
         Car = "car",
         Hotel = "hotel",
         RoundTrip = "roundtrip",
         Camper = "camper",
     }
-    export enum CarRentalStatus {
+    export const enum CarRentalStatus {
         Okay = "OK",
         OnRequest = "RQ",
     }
-    export enum CarVehicleCategory {
+    export const enum CarVehicleCategory {
         SmallCar = "SMALL_CAR",
         CompactCar = "COMPACT_CAR",
         MediumClass = "MEDIUM_CLASS",
@@ -23,17 +23,17 @@ declare namespace bookingManagerConnector {
         Uncategorized = "UNCATEGORIZED",
         VariousCartypes = "VARIOUS_CARTYPES",
     }
-    export enum CarLocationType {
+    export const enum CarLocationType {
         Hotel = "hotel",
         Station = "station",
     }
-    export enum CarExtraType {
+    export const enum CarExtraType {
         AdditionalDriver = "additionalDriver",
         NavigationSystem = "navigationSystem",
         OneWayFee = "oneWayFee",
         ChildCareSeat = "childCareSeat",
     }
-    export enum HotelRoomCode {
+    export const enum HotelRoomCode {
         SingleRoom = "EZ",
         DoubleRoom = "DZ",
         TripleRoom = "TZ",
@@ -41,19 +41,19 @@ declare namespace bookingManagerConnector {
         TwinRoom = "DU",
         DoubleRoomForSingleUse = "D1",
     }
-    export enum HotelMealCode {
+    export const enum HotelMealCode {
         SelfCatering = "U",
         BedAndBreakfast = "F",
         HalfBoard = "H",
         FullBoard = "V",
         AllInclusive = "A",
     }
-    export enum HotelServiceType {
+    export const enum HotelServiceType {
         Parking = "parking",
         SpaFitness = "spa_fitness",
         Connection = "connection",
     }
-    export enum CarServiceType {
+    export const enum CarServiceType {
         ComprehensiveCoverAndRetention = 'comprehensiveCoverAndRetention',
         TheftProtectionAndExcess = 'theftProtectionAndExcess',
         Liability = 'liability',
@@ -61,21 +61,21 @@ declare namespace bookingManagerConnector {
         TankFull = 'tankFull',
         IncludedMileage = 'includedMileage',
     }
-    export enum TravellerType {
+    export const enum TravellerType {
         Male = "male",
         Female = "female",
         Child = "child",
         Infant = "infant",
     }
-    export enum RoundTripRouteType {
+    export const enum RoundTripRouteType {
         Accommodation = "accommodation",
         Transfer = "transfer",
     }
-    export enum CamperRentalStatus {
+    export const enum CamperRentalStatus {
         Okay = "OK",
         OnRequest = "REQUESTED",
     }
-    export enum CamperMilesAmount {
+    export const enum CamperMilesAmount {
         Unlimited = "UNL",
     }
     export interface DataTypes {
@@ -191,7 +191,7 @@ declare namespace bookingManagerConnector {
         name: string;
         quantity: number | string;
     }
-    export interface RoundTripRouteAccommodation {
+    export interface RoundTripRouteAccomodation {
         type: RoundTripRouteType.Accommodation | string;
         fromDate: string;
         toDate: string;
@@ -209,7 +209,7 @@ declare namespace bookingManagerConnector {
         type: ServiceType.RoundTrip;
         booking: RoundTripBooking;
         trip: RoundTripTrip;
-        route: Array<RoundTripRouteTransfer | RoundTripRouteAccommodation>;
+        route: Array<RoundTripRouteTransfer | RoundTripRouteAccomodation>;
         travellers: Array<Traveller>;
     }
 
