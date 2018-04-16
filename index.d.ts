@@ -191,7 +191,7 @@ declare namespace bookingManagerConnector {
         name: string;
         quantity: number | string;
     }
-    export interface RoundTripRouteAccomodation {
+    export interface RoundTripRouteAccommodation {
         type: RoundTripRouteType.Accommodation | string;
         fromDate: string;
         toDate: string;
@@ -209,7 +209,7 @@ declare namespace bookingManagerConnector {
         type: ServiceType.RoundTrip;
         booking: RoundTripBooking;
         trip: RoundTripTrip;
-        route: Array<RoundTripRouteTransfer | RoundTripRouteAccomodation>;
+        route: Array<RoundTripRouteTransfer | RoundTripRouteAccommodation>;
         travellers: Array<Traveller>;
     }
 

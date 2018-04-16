@@ -239,6 +239,10 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
       latitude: '48.139497',
       longitude: '11.563788',
     },
+    {
+        type: 'transfer',
+        description: 'Transfer San Francisco Flughafen - San Francisco Hotel',
+    },
     ...
   ],
   travellers: [
