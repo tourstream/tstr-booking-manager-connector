@@ -1,15 +1,15 @@
 declare namespace bookingManagerConnector {
-    export enum ServiceType {
+    export const enum ServiceType {
         Car = "car",
         Hotel = "hotel",
         RoundTrip = "roundtrip",
         Camper = "camper",
     }
-    export enum CarRentalStatus {
+    export const enum CarRentalStatus {
         Okay = "OK",
         OnRequest = "RQ",
     }
-    export enum CarVehicleCategory {
+    export const enum CarVehicleCategory {
         SmallCar = "SMALL_CAR",
         CompactCar = "COMPACT_CAR",
         MediumClass = "MEDIUM_CLASS",
@@ -23,17 +23,17 @@ declare namespace bookingManagerConnector {
         Uncategorized = "UNCATEGORIZED",
         VariousCartypes = "VARIOUS_CARTYPES",
     }
-    export enum CarLocationType {
+    export const enum CarLocationType {
         Hotel = "hotel",
         Station = "station",
     }
-    export enum CarExtraType {
+    export const enum CarExtraType {
         AdditionalDriver = "additionalDriver",
         NavigationSystem = "navigationSystem",
         OneWayFee = "oneWayFee",
         ChildCareSeat = "childCareSeat",
     }
-    export enum HotelRoomCode {
+    export const enum HotelRoomCode {
         SingleRoom = "EZ",
         DoubleRoom = "DZ",
         TripleRoom = "TZ",
@@ -41,33 +41,41 @@ declare namespace bookingManagerConnector {
         TwinRoom = "DU",
         DoubleRoomForSingleUse = "D1",
     }
-    export enum HotelMealCode {
+    export const enum HotelMealCode {
         SelfCatering = "U",
         BedAndBreakfast = "F",
         HalfBoard = "H",
         FullBoard = "V",
         AllInclusive = "A",
     }
-    export enum HotelServiceType {
+    export const enum HotelServiceType {
         Parking = "parking",
         SpaFitness = "spa_fitness",
         Connection = "connection",
     }
-    export enum TravellerType {
+    export const enum CarServiceType {
+        ComprehensiveCoverAndRetention = 'comprehensiveCoverAndRetention',
+        TheftProtectionAndExcess = 'theftProtectionAndExcess',
+        Liability = 'liability',
+        FeeST = 'feeST',
+        TankFull = 'tankFull',
+        IncludedMileage = 'includedMileage',
+    }
+    export const enum TravellerType {
         Male = "male",
         Female = "female",
         Child = "child",
         Infant = "infant",
     }
-    export enum RoundTripRouteType {
+    export const enum RoundTripRouteType {
         Accommodation = "accommodation",
         Transfer = "transfer",
     }
-    export enum CamperRentalStatus {
+    export const enum CamperRentalStatus {
         Okay = "OK",
         OnRequest = "REQUESTED",
     }
-    export enum CamperMilesAmount {
+    export const enum CamperMilesAmount {
         Unlimited = "UNL",
     }
     export interface DataTypes {
@@ -83,13 +91,14 @@ declare namespace bookingManagerConnector {
     }
     export interface Traveller {
         type: TravellerType;
-        name: string;
+        firstName: string;
+        lastName: string;
         age: number | string;
     }
     export interface CarRental {
         status: CarRentalStatus | string;
         editUrl: string;
-        availabilityUrl: string;
+        availabilityUrl?: string;
         conditionUrl: string;
         price: number | number;
         currencyCode: string;
@@ -108,21 +117,22 @@ declare namespace bookingManagerConnector {
     export interface VehicleLocation {
         type: CarLocationType;
         date: string;
-        time: string;
+        time?: string;
         locationCode: string;
         name: string;
         address: string;
-        phoneNumber: string;
+        phoneNumber?: string;
         latitude: number | string;
         longitude: number | string;
     }
     export interface CarExtra {
         type: CarExtraType | string;
-        amount: number | string;
-        totalPrice: number | string;
-        currencyCode: string;
-        exchangeTotalPrice: number | string;
-        exchangeCurrencyCode: string;
+        option?: string,
+        amount?: number | string;
+        totalPrice?: number | string;
+        currencyCode?: string;
+        exchangeTotalPrice?: number | string;
+        exchangeCurrencyCode?: string;
     }
     export interface CarData extends TransferData {
         type: ServiceType.Car;
@@ -144,7 +154,7 @@ declare namespace bookingManagerConnector {
     }
     export interface HotelHotel {
         externalCode: string;
-        category: number | string;
+        category: number;
         name: string;
         imageUrl: string;
         address: string;
@@ -153,8 +163,8 @@ declare namespace bookingManagerConnector {
     }
     export interface HotelRoom {
         code: HotelRoomCode | string;
-        quantity: number | string;
-        occupancy: number | string;
+        quantity: number;
+        occupancy: number;
         mealCode: HotelMealCode | string;
     }
     export interface HotelData extends TransferData {
@@ -181,8 +191,8 @@ declare namespace bookingManagerConnector {
         name: string;
         quantity: number | string;
     }
-    export interface RoundTripRoute {
-        type: RoundTripRouteType | string;
+    export interface RoundTripRouteAccommodation {
+        type: RoundTripRouteType.Accommodation | string;
         fromDate: string;
         toDate: string;
         location: string;
@@ -191,18 +201,23 @@ declare namespace bookingManagerConnector {
         latitude: number | string;
         longitude: number | string;
     }
+    export interface RoundTripRouteTransfer {
+        type: RoundTripRouteType.Transfer | string;
+        description: string
+    }
     export interface RoundTripData extends TransferData {
         type: ServiceType.RoundTrip;
         booking: RoundTripBooking;
         trip: RoundTripTrip;
-        route: Array<RoundTripRoute>;
+        route: Array<RoundTripRouteTransfer | RoundTripRouteAccommodation>;
         travellers: Array<Traveller>;
     }
+
     export interface CamperRental {
         status: CamperRentalStatus | string;
         editUrl: string;
-        availabilityUrl: string;
-        conditionUrl: string;
+        availabilityUrl?: string;
+        conditionUrl?: string;
         price: number | string;
         currencyCode: string;
         milesIncludedPerDay: number | string;
@@ -222,11 +237,11 @@ declare namespace bookingManagerConnector {
     export interface CamperExtra {
         name: string;
         code: string;
-        amount: number | string | CamperMilesAmount.Unlimited;
+        amount?: number | string | CamperMilesAmount.Unlimited;
         totalPrice: number | string;
-        currencyCode: string;
-        exchangeTotalPrice: number | string;
-        exchangeCurrencyCode: string;
+        currencyCode?: string;
+        exchangeTotalPrice?: number | string;
+        exchangeCurrencyCode?: string;
     }
     export interface CamperData extends TransferData {
         type: ServiceType.Camper;
