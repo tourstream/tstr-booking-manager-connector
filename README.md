@@ -335,7 +335,8 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   travellers: [
     {
       type: 'male',
-      name: 'john doe',
+      firstName: 'john',
+      lastName: 'doe',
       age: 32,
     },
     {
