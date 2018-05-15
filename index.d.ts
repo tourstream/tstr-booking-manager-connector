@@ -53,14 +53,6 @@ declare namespace bookingManagerConnector {
         SpaFitness = "spa_fitness",
         Connection = "connection",
     }
-    export const enum CarServiceType {
-        ComprehensiveCoverAndRetention = 'comprehensiveCoverAndRetention',
-        TheftProtectionAndExcess = 'theftProtectionAndExcess',
-        Liability = 'liability',
-        FeeST = 'feeST',
-        TankFull = 'tankFull',
-        IncludedMileage = 'includedMileage',
-    }
     export const enum TravellerType {
         Male = "male",
         Female = "female",
@@ -77,6 +69,11 @@ declare namespace bookingManagerConnector {
     }
     export const enum CamperMilesAmount {
         Unlimited = "UNL",
+    }
+    export const enum CamperExtraType {
+        Equipment = "equipment",
+        Special = "special",
+        Insurance = "insurance",
     }
     export interface DataTypes {
         car: ServiceType.Car;
@@ -236,6 +233,7 @@ declare namespace bookingManagerConnector {
     }
     export interface CamperExtra {
         name: string;
+        type: CamperExtraType;
         code: string;
         amount?: number | string | CamperMilesAmount.Unlimited;
         totalPrice: number | string;
