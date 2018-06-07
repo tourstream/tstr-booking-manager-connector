@@ -318,6 +318,7 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   extras: [
     {
       name: 'Extra Name',
+      type: 'equipment',
       code: 'ECX0001',
       amount: 3,
       totalPrice: 210,
@@ -327,8 +328,14 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
     },
     {
       name: 'Early Bird Special',
+      type: 'special',
       code: 'USA740',
       amount: 1,
+    },
+    {
+      name: 'Reiserücktrittsversicherung Plus',
+      type: 'insurance',
+      code: '13361',
     },
     ...,
   ], 
