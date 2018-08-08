@@ -97,6 +97,7 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
     category: 'SMALL_CAR',
     name: 'Chevrolet Spark 2-4T AU',
     imageUrl: 'example://url-to-vehicle.img',
+    sipp: 'MBMN',
   },
   renter: {
     code: 'USA81',
