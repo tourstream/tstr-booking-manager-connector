@@ -105,6 +105,7 @@ declare namespace bookingManagerConnector {
         category: CarVehicleCategory | string;
         name: string;
         imageUrl: string;
+        sipp: string;
     }
     export interface CarRenter {
         code: string;
