@@ -1,6 +1,6 @@
 {
   "name": "@tourstream/tstr-booking-manager-connector",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "This library enables your IBE to connect with the FTI booking manager.",
   "main": "dist/bookingManagerConnector.js",
   "typings": "index.d.ts",
