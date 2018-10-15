@@ -35,11 +35,12 @@
     "url": "git+ssh://git@github.com:tourstream/tstr-booking-manager-connector.git"
   },
   "dependencies": {
-    "es6-shim": "^0.35.3",
     "moment": "^2.21.0",
     "penpal": "^3.0.3"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "babel-core": "^6.26.0",
     "babel-istanbul": "^0.12.2",
     "babel-loader": "^7.1.4",
