@@ -1,4 +1,4 @@
-import es6shim from 'es6-shim';
+import '@babel/polyfill';
 import LogService from 'LogService';
 import Penpal from 'penpal';
 import moment from 'moment';
