@@ -99,6 +99,7 @@ declare namespace bookingManagerConnector {
         conditionUrl: string;
         price: number | number;
         currencyCode: string;
+        pnr: string;
     }
     export interface CarVehicle {
         code: string;

@@ -91,6 +91,7 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
     conditionUrl: 'example://url-to-the.conditions',
     price: 506,
     currencyCode: 'EUR',
+    pnr: '15faz',
   },
   vehicle: {
     code: 'E2',
