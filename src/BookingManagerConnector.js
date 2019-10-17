@@ -26,6 +26,7 @@ const TYPE_2_DATE_PROPERTIES = {
     [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate'],
     [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate'],
     [DATA_TYPES.camper]: ['pickUp.date', 'dropOff.date'],
+    traveller: ['travellers.dateOfBirth'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {
@@ -110,6 +111,7 @@ class BookingManagerConnector {
 
         if (this.options.useDateFormat !== CONFIG.dateFormat) {
             this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES[data.type]);
+            this.convertDateProperties(data, TYPE_2_DATE_PROPERTIES['traveller']);
         }
 
         if (this.options.useTimeFormat !== CONFIG.timeFormat) {

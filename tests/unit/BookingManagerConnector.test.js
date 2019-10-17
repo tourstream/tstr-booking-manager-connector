@@ -284,6 +284,35 @@ describe('BookingManagerConnector', () => {
             });
         });
 
+        it('conversion of traveller values should work correct', (done) => {
+            let data = {
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '19831108',
+                }],
+            };
+
+            let expected = {
+                _: { version: jasmine.anything() },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '1983-11-08',
+                }],
+            };
+
+            bmApi.directCheckout.and.callFake((data) => {
+                expect(data).toEqual(expected);
+                done();
+            });
+
+            adapter.directCheckout(data).catch((error) => {
+                console.log(error.toString());
+                done.fail('unexpected result');
+            });
+        });
+
         it('should do no conversion if conversion result is wrong', (done) => {
             let data = {
                 type: DATA_TYPES.car,

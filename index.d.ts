@@ -90,7 +90,7 @@ declare namespace bookingManagerConnector {
         type: TravellerType;
         firstName: string;
         lastName: string;
-        age: number | string;
+        dateOfBirth: string;
     }
     export interface CarRental {
         status: CarRentalStatus | string;
