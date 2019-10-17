@@ -142,6 +142,7 @@ declare namespace bookingManagerConnector {
         dropOff: VehicleLocation;
         services: Array<string>;
         extras: Array<CarExtra>;
+        travellers: Array<Traveller>;
     }
     export interface HotelBooking {
         fromDate: string;

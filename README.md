@@ -153,6 +153,22 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
     },
     ...,
   ], 
+  travellers: [
+    {
+      type: TravellerType,
+      firstName: 'john',
+      lastName: 'doe',
+      age: 32,
+    },
+    {
+      type: TravellerType,
+      age: 4,
+    },
+    {
+      type: TravellerType,
+    },
+    ...
+  ],
 }
 ```
 
@@ -186,17 +202,17 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   },
   travellers: [
     {
-      type: 'male',
+      type: TravellerType,
       firstName: 'john',
       lastName: 'doe',
       age: 32,
     },
     {
-      type: 'child',
+      type: TravellerType,
       age: 4,
     },
     {
-      type: 'infant',
+      type: TravellerType,
     },
     ...
   ],
@@ -249,17 +265,17 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   ],
   travellers: [
     {
-      type: 'male',
+      type: TravellerType,
       firstName: 'john',
       lastName: 'doe',
       age: 32,
     },
     {
-      type: 'child',
+      type: TravellerType,
       age: 4,
     },
     {
-      type: 'infant',
+      type: TravellerType,
     },
     ...
   ],
@@ -343,17 +359,17 @@ Depending on the `type` the [structure of the `dataObject`](index.d.ts) differs.
   ], 
   travellers: [
     {
-      type: 'male',
+      type: TravellerType,
       firstName: 'john',
       lastName: 'doe',
       age: 32,
     },
     {
-      type: 'child',
+      type: TravellerType,
       age: 4,
     },
     {
-      type: 'infant',
+      type: TravellerType,
     },
     ...
   ],
