@@ -22,10 +22,10 @@ const CONFIG = {
 };
 
 const TYPE_2_DATE_PROPERTIES = {
-    [DATA_TYPES.car]: ['pickUp.date', 'dropOff.date'],
-    [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate'],
-    [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate'],
-    [DATA_TYPES.camper]: ['pickUp.date', 'dropOff.date'],
+    [DATA_TYPES.car]: ['pickUp.date', 'dropOff.date', 'travellers.dateOfBirth'],
+    [DATA_TYPES.hotel]: ['booking.fromDate', 'booking.toDate', 'travellers.dateOfBirth'],
+    [DATA_TYPES.roundTrip]: ['booking.fromDate', 'booking.toDate', 'route.fromDate', 'route.toDate', 'travellers.dateOfBirth'],
+    [DATA_TYPES.camper]: ['pickUp.date', 'dropOff.date', 'travellers.dateOfBirth'],
 };
 
 const TYPE_2_TIME_PROPERTIES = {
