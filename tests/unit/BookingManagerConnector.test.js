@@ -151,6 +151,11 @@ describe('BookingManagerConnector', () => {
                     date: '20181110',
                     time: '0930',
                 },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '19831108',
+                }],
             };
 
             let expected = {
@@ -164,6 +169,11 @@ describe('BookingManagerConnector', () => {
                     date: '2018-11-10',
                     time: '09:30',
                 },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '1983-11-08',
+                }],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -184,6 +194,11 @@ describe('BookingManagerConnector', () => {
                     fromDate: '20181108',
                     toDate: '20181118',
                 },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '19831108',
+                }],
             };
 
             let expected = {
@@ -193,6 +208,11 @@ describe('BookingManagerConnector', () => {
                     fromDate: '2018-11-08',
                     toDate: '2018-11-18',
                 },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '1983-11-08',
+                }],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -219,6 +239,11 @@ describe('BookingManagerConnector', () => {
                         toDate: '20181217',
                     },
                 ],
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '19831108',
+                }],
             };
 
             let expected = {
@@ -234,6 +259,11 @@ describe('BookingManagerConnector', () => {
                         toDate: '2018-12-17',
                     },
                 ],
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '1983-11-08',
+                }],
             };
 
             bmApi.directCheckout.and.callFake((data) => {
@@ -258,6 +288,11 @@ describe('BookingManagerConnector', () => {
                     date: '20181110',
                     time: '0930',
                 },
+                travellers: [{
+                    title: 'title',
+                    name: 'name',
+                    dateOfBirth: '19831108',
+                }],
             };
 
             let expected = {
@@ -271,30 +306,6 @@ describe('BookingManagerConnector', () => {
                     date: '2018-11-10',
                     time: '09:30',
                 },
-            };
-
-            bmApi.directCheckout.and.callFake((data) => {
-                expect(data).toEqual(expected);
-                done();
-            });
-
-            adapter.directCheckout(data).catch((error) => {
-                console.log(error.toString());
-                done.fail('unexpected result');
-            });
-        });
-
-        it('conversion of traveller values should work correct', (done) => {
-            let data = {
-                travellers: [{
-                    title: 'title',
-                    name: 'name',
-                    dateOfBirth: '19831108',
-                }],
-            };
-
-            let expected = {
-                _: { version: jasmine.anything() },
                 travellers: [{
                     title: 'title',
                     name: 'name',
